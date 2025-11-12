@@ -88,7 +88,7 @@ public class Libro {
 
         //
         String info = String.format("Libro - Titulo : %s, Autor: %s , Fecha publicacion: %s, Numero de paginas: %s, Edicion: %s, Editorial: %s, ISBN: %s ");
-            , this.titulo, this.autor, this.ISBN, this.fechaPublicacion, this.nPaginas);
+            this.titulo, this.autor, this.ISBN, this.fechaPublicacion, this.nPaginas);
 
         return infoLibro;
     }
