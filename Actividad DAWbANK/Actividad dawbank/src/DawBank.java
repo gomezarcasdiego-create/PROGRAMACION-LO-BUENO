@@ -4,7 +4,21 @@ public class DawBank {
       Scanner sc = new Scanner(System.in);
       int opcion;
       System.out.println("Elige una opcion");
-          do{
+
+        System.out.println("=== CREACIÓN DE CUENTA BANCARIA ===");
+
+        System.out.print("Introduce el IBAN: ");
+        String IBAN = sc.nextLine();
+
+        System.out.print("Introduce el titular: ");
+        String titular = sc.nextLine();
+
+        System.out.print("Introduce el saldo inicial: ");
+        double saldoInicial = sc.nextDouble();
+
+
+        do{
+
 
               System.out.println("======Menú Principal======");
               System.out.println("0. Datos de la cuenta"); //Mostrará el IBAN, el titular y el saldo.
@@ -53,5 +67,22 @@ public class DawBank {
                             System.out.println("Opción inválida. Intenta de nuevo");
                 }
           }while (opcion != 7);
+
+    }
+    public static boolean validarIBAN(String IBAN) {
+
+        IBAN = IBAN.replace(" ", "");
+
+        if (IBAN.length() != 24) return false;
+
+        // Debe empezar por "ES"
+        if (!IBAN.startsWith("ES")) return false;
+
+        // Los 22 caracteres restantes deben ser dígitos
+        String resto = IBAN.substring(2);
+        for (int i = 0; i < resto.length(); i++) {
+            if (!Character.isDigit(resto.charAt(i))) return false;
+        }return true;
     }
 }
+
