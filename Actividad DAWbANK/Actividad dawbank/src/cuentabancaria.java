@@ -48,7 +48,6 @@ public class cuentabancaria {
 
         if (!letras.matches("[A-Za-z]{2}")) return false;
 
-        // Comprobar que las 22 posiciones restantes son números
         if (!numeros.matches("[0-9]{22}")) return false;
 
         return true;
