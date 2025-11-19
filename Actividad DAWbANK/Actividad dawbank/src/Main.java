@@ -1,86 +1,89 @@
 import java.util.Scanner;
+
 public class Main {
+
     public static void main(String[] args) {
+
         Scanner sc = new Scanner(System.in);
-        int opcion;
-        System.out.println("Elige una opcion");
 
-        System.out.println("=== CREACIÓN DE CUENTA BANCARIA ===");
+        System.out.println("=== Crear cuenta bancaria ===");
+        System.out.print("Introduce IBAN: ");
+        String iban = sc.nextLine();
 
-
-        String IBAN;
-            System.out.print("Introduce el IBAN: ");
-            IBAN = sc.nextLine();
-
-        System.out.print("Introduce el titular: ");
+        System.out.print("Introduce titular: ");
         String titular = sc.nextLine();
 
-        System.out.print("Introduce el saldo inicial: ");
-        double saldoInicial = sc.nextDouble();
+        cuentabancaria cuenta;
+
+        try {
+            cuenta = new cuentabancaria(iban, titular);
+        } catch (Exception e) {
+            System.out.println("Error al crear la cuenta: " + e.getMessage());
+            return;
+        }
+
+        int opcion;
 
         do {
+            System.out.println("\n====== MENÚ PRINCIPAL ======");
+            System.out.println("1. Datos de la cuenta");
+            System.out.println("2. IBAN");
+            System.out.println("3. Titular");
+            System.out.println("4. Saldo");
+            System.out.println("5. Ingreso");
+            System.out.println("6. Retirada");
+            System.out.println("7. Movimientos");
+            System.out.println("8. Salir");
+            System.out.print("Selecciona una opción: ");
 
-
-            System.out.println("======Menú Principal======");
-            System.out.println("0. Datos de la cuenta"); //Mostrará el IBAN, el titular y el saldo.
-            System.out.println("1. IBAN");
-            System.out.println("2. Titular");
-            System.out.println("3. Saldo");
-            System.out.println("4. Ingreso");
-            System.out.println("5. Retirada");
-            System.out.println("6. Movimientos");
-            System.out.println("7. Salir");
             opcion = sc.nextInt();
+            sc.nextLine();
 
             switch (opcion) {
-                case 0:
-                    System.out.println("Datos de la cuenta");
-                    break;
-
                 case 1:
-                    System.out.println("IBAN");
+                    System.out.println("IBAN: " + cuenta.getIBAN());
+                    System.out.println("Titular: " + cuenta.getTitular());
+                    System.out.println("Saldo: " + cuenta.getSaldo() + "€");
                     break;
 
+                    
                 case 2:
-                    System.out.println("Titular");
+                    System.out.println("IBAN: " + cuenta.getIBAN());
                     break;
 
                 case 3:
-                    System.out.println("Saldo");
+                    System.out.println("Titular: " + cuenta.getTitular());
                     break;
 
                 case 4:
-                    System.out.println("Ingreso");
+                    System.out.println("Saldo disponible: " + cuenta.getSaldo() + "€");
                     break;
 
                 case 5:
-                    System.out.println("Retirada");
+                    System.out.print("Cantidad a ingresar: ");
+                    double ingreso = sc.nextDouble();
+                    cuenta.ingresar(ingreso);
                     break;
 
                 case 6:
-                    System.out.println("Movimientos");
+                    System.out.print("Cantidad a retirar: ");
+                    double retirada = sc.nextDouble();
+                    cuenta.retirar(retirada);
                     break;
 
                 case 7:
-                    System.out.println("salir");
+                    System.out.println("MOVIMIENTOS");
+                    cuenta.getMovimientos();
                     break;
+
+                case 8:
+                    System.out.println("Saliendo del programa");
+                    break;
+
                 default:
-                    System.out.println("Opción inválida. Intenta de nuevo");
+                    System.out.println("Opción no válida.");
             }
-        } while (opcion != 7);
+        } while (opcion != 8);
+
     }
-        public static boolean validarIBAN (String IBAN){
-
-            IBAN = IBAN.replace(" ", "");
-
-            if (IBAN.length() != 24) return false;
-
-            if (!IBAN.startsWith("ES")) return false;
-
-            String resto = IBAN.substring(2);
-            for (int i = 0; i < resto.length(); i++) {
-                if (!Character.isDigit(resto.charAt(i))) return false;
-            }
-            return true;
-        }
-    }
+}
