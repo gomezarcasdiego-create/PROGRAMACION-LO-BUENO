@@ -46,7 +46,7 @@ public class Main {
                     System.out.println("Saldo: " + cuenta.getSaldo() + "€");
                     break;
 
-                    
+
                 case 2:
                     System.out.println("IBAN: " + cuenta.getIBAN());
                     break;
