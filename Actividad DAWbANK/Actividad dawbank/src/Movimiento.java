@@ -36,10 +36,15 @@ public class Movimiento {
         return Cantidad;
     }
 
-    public void Movimiento(){
-        System.out.println("Movimiento ID: " + ID);
-        System.out.println("Fecha: " + Fecha);
-        System.out.println("Tipo: " + Tipo);
-        System.out.println("Cantidad: " + Cantidad + "€");
+    public String Movimiento() {
+
+        String info = "";
+
+        info = "ID" + this.ID;
+        info += "\nFecha" + this.Fecha;
+        info += "\nTipo" + this.Tipo;
+        info += "\nCantidad" + this.Cantidad;
+
+        return info;
     }
 }

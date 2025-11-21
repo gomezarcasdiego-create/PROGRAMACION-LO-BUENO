@@ -13,14 +13,8 @@ public class Main {
         System.out.print("Introduce titular: ");
         String titular = sc.nextLine();
 
-        cuentabancaria cuenta;
+        cuentabancaria cuenta = new cuentabancaria(iban, titular);
 
-        try {
-            cuenta = new cuentabancaria(iban, titular);
-        } catch (Exception e) {
-            System.out.println("Error al crear la cuenta: " + e.getMessage());
-            return;
-        }
 
         int opcion;
 
@@ -73,7 +67,9 @@ public class Main {
 
                 case 7:
                     System.out.println("MOVIMIENTOS");
-                    cuenta.getMovimientos();
+                    cuenta.recorrer();
+                    System.out.println("saldo" + cuenta.getSaldo());
+                    cuenta.getSaldo();
                     break;
 
                 case 8:
@@ -86,4 +82,18 @@ public class Main {
         } while (opcion != 8);
 
     }
+    private boolean validarIBAN(String IBAN) {
+
+        if (IBAN.length() != 24) return false;
+
+        String letras = IBAN.substring(0, 2);
+        String numeros = IBAN.substring(2);
+
+        if (!letras.matches("[A-Za-z]{2}")) return false;
+
+        if (!numeros.matches("[0-9]{22}")) return false;
+
+        return true;
+    }
 }
+

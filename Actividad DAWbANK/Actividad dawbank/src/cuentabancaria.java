@@ -12,13 +12,7 @@ public class cuentabancaria {
 
     public cuentabancaria(String IBAN, String Titular) {
 
-        if (!validarIBAN(IBAN)) {
-            throw new IllegalArgumentException("El titular esta vacio");
-        }
 
-        if (Titular == null || Titular.isEmpty()) {
-            throw new IllegalArgumentException("El titular no puede estar vacio");
-        }
         this.IBAN = IBAN;
         this.Titular = Titular;
         this.Saldo = 0;
@@ -39,19 +33,7 @@ public class cuentabancaria {
         return Movimientos;
     }
 
-    private boolean validarIBAN(String IBAN) {
 
-        if (IBAN.length() != 24) return false;
-
-        String letras = IBAN.substring(0, 2);
-        String numeros = IBAN.substring(2);
-
-        if (!letras.matches("[A-Za-z]{2}")) return false;
-
-        if (!numeros.matches("[0-9]{22}")) return false;
-
-        return true;
-    }
 
     private void registrarMovimiento(Movimiento mov) {
         if (contadorMovimientos < MAX_MOVIMIENTOS) {
@@ -103,5 +85,10 @@ public class cuentabancaria {
 
         Movimiento m = new Movimiento("Retirada", cantidad);
         registrarMovimiento(m);
+    }
+    public void recorrer(){
+        for(int i = 0; i < contadorMovimientos; i++){
+            System.out.println(Movimientos[i].Movimiento());
+        }
     }
 }
