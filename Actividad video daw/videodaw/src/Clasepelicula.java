@@ -25,6 +25,10 @@ public class Clasepelicula {
         this.isAlquilada = isAlquilada;
     }
 
+    public Clasepelicula() {
+
+    }
+
     public String getCodigoIdentificador() {
         return codigoIdentificador;
     }

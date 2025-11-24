@@ -1,5 +1,4 @@
 import java.time.LocalDate;
-import java.util.Scanner;
 import java.util.ArrayList;
 
 public class ClaseviedoDaw {
@@ -10,12 +9,15 @@ public class ClaseviedoDaw {
     private String PeliculasRegistradas;
     private String ClientesRegistrados;
 
-    public ClaseviedoDaw(String CIF, String direccion, String PeliculasRegistradas, String ClientesRegistrados) {
+    public void videoDaw(String CIF, String direccion) {
+
         this.CIF = CIF;
-        this.direccion = direccion;
-        this.PeliculasRegistradas = PeliculasRegistradas;
-        this.ClientesRegistrados = ClientesRegistrados;
+            this.direccion = direccion;
+            this.PeliculasRegistradas = PeliculasRegistradas;
+            this.ClientesRegistrados = ClientesRegistrados;
     }
+
+
 
     public String getCIF() {
         return CIF;
@@ -103,4 +105,5 @@ public class ClaseviedoDaw {
             }
         }
     }
+
 }
