@@ -44,7 +44,7 @@ public class Main {
                 System.out.println("Crear y registrar cliente en videoclub");
             case 4:
                 System.out.println("Alquilar pelicula" + pelicula.isAlquilada);
-                String isAlquilada = sc.nextLine();
+//                String isAlquilada = sc.nextLine();
 
             case 5:
                 System.out.println("Devolver pelicula");
@@ -61,27 +61,5 @@ public class Main {
     }while (opcion != 8);
 
 
-    }
-    public class validarCIF{
-        public boolean validarCIF(String CIF) {
-            if (CIF == null || CIF.length() != 9) {
-              return false;
-            }
-            return false;
-        }
-
-    }
-    private boolean validarCIF(String CIF){
-
-        if(CIF.length() !=9) return false;
-
-        String letras = CIF.substring(0,2);
-        String numeros =  CIF.substring(2);
-
-        if(!letras.contains(letras)) return false;
-
-        if(!numeros.contains(letras)) return false;
-
-        return true;
     }
 }
