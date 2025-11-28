@@ -12,9 +12,9 @@ public class ClaseviedoDaw {
     public void videoDaw(String CIF, String direccion) {
 
         this.CIF = CIF;
-            this.direccion = direccion;
-            this.PeliculasRegistradas = PeliculasRegistradas;
-            this.ClientesRegistrados = ClientesRegistrados;
+        this.direccion = direccion;
+        this.PeliculasRegistradas = PeliculasRegistradas;
+        this.ClientesRegistrados = ClientesRegistrados;
     }
 
 

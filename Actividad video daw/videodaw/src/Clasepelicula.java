@@ -32,57 +32,57 @@ public class Clasepelicula {
     public String getCodigoIdentificador() {
         return codigoIdentificador;
     }
-        public void setCodigoIdentificador(String codigoIdentificador) {
-            this.codigoIdentificador = codigoIdentificador;
-        }
+    public void setCodigoIdentificador(String codigoIdentificador) {
+        this.codigoIdentificador = codigoIdentificador;
+    }
 
     public String getTitulo() {
         return titulo;
     }
 
-        public void setTitulo(String titulo) {
-            this.titulo = titulo;
-        }
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
+    }
 
     public Enum getGenero() {
         return Genero;
     }
 
-        public void setGenero(Enum genero) {
-            this.Genero = genero;
-        }
+    public void setGenero(Enum genero) {
+        this.Genero = genero;
+    }
 
     public LocalDate getFechaRegistro() {
         return fechaRegistro;
     }
 
-        public void setFechaRegistro(LocalDate fechaRegistro) {
-            this.fechaRegistro = fechaRegistro;
-        }
+    public void setFechaRegistro(LocalDate fechaRegistro) {
+        this.fechaRegistro = fechaRegistro;
+    }
 
     public LocalDate getFechaBaja() {
         return fechaBaja;
     }
 
-        public void setFechaBaja(LocalDate fechaBaja) {
-            this.fechaBaja = fechaBaja;
-        }
+    public void setFechaBaja(LocalDate fechaBaja) {
+        this.fechaBaja = fechaBaja;
+    }
 
     public LocalDateTime getFechaAlquiler() {
         return fechaAlquiler;
     }
 
-        public void setFechaAlquiler(LocalDateTime fechaAlquiler) {
-            this.fechaAlquiler = fechaAlquiler;
-        }
+    public void setFechaAlquiler(LocalDateTime fechaAlquiler) {
+        this.fechaAlquiler = fechaAlquiler;
+    }
 
     public boolean isAlquilada() {
         return isAlquilada;
     }
 
-        public void setAlquilada(boolean alquilada) {
-            isAlquilada = alquilada;
-        }
+    public void setAlquilada(boolean alquilada) {
+        isAlquilada = alquilada;
+    }
 
     public void mostrarInfoPelicula() {
         System.out.println("Codigo de Identificador: " + this.codigoIdentificador);
@@ -94,5 +94,3 @@ public class Clasepelicula {
         System.out.println("Alquilada: " + this.isAlquilada);
     }
 }
-
-

@@ -20,7 +20,7 @@ public class Clasecliente {
         if (fechanacimiento == null) {
             return LocalDate.now();
         }
-    return fechanacimiento;}
+        return fechanacimiento;}
 
     public Clasecliente(String DNI, String nombre, String direccion, String peliculasalquiladas) {
         this.DNI = DNI;
