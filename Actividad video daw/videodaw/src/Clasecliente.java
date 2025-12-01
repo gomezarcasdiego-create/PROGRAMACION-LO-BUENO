@@ -1,49 +1,64 @@
 import java.time.LocalDate;
 
 public class Clasecliente {
-    public class Numsocio {
-    }
 
     private String DNI;
     private String nombre;
-    private int NumSocio;
+    private String numSocio;
     private String direccion;
-    LocalDate fechanacimiento;
-    LocalDate fechabaja;
-    private String peliculasalquiladas;
+    private LocalDate fechaNacimiento;
+    private LocalDate fechaBaja;
+    private Clasepelicula[] peliculasAlquiladas;
 
-    private Numsocio[] Numsocios;
-    private int Fechanacimiento;
-    private int Fechabaja;
-
-    LocalDate getFechanacimiento() {
-        if (fechanacimiento == null) {
-            return LocalDate.now();
-        }
-        return fechanacimiento;}
-
-    public Clasecliente(String DNI, String nombre, String direccion, String peliculasalquiladas) {
+    public Clasecliente(String DNI, String nombre, String numSocio, LocalDate fechaNacimiento) {
         this.DNI = DNI;
         this.nombre = nombre;
-        this.direccion = direccion;
-        this.peliculasalquiladas = peliculasalquiladas;
+        this.numSocio = numSocio;
+        this.direccion = "";
+        this.fechaNacimiento = fechaNacimiento;
+        this.fechaBaja = null;
+        this.peliculasAlquiladas = new Clasepelicula[10];
     }
 
-    public void mostrarinfoCliente() {
+    public String getDNI() {
+        return DNI;
+    }
+
+    public void setFechaBaja(LocalDate fechaBaja) {
+        this.fechaBaja = fechaBaja;
+    }
+
+    public void alquilarPelicula(Clasepelicula p) {
+        for (int i = 0; i < peliculasAlquiladas.length; i++) {
+            if (peliculasAlquiladas[i] == null) {
+                peliculasAlquiladas[i] = p;
+                return;
+            }
+        }
+    }
+
+    public void devolverPelicula(Clasepelicula p) {
+        for (int i = 0; i < peliculasAlquiladas.length; i++) {
+            if (peliculasAlquiladas[i] != null && peliculasAlquiladas[i].getCod().equals(p.getCod())) {
+                peliculasAlquiladas[i] = null;
+                return;
+            }
+        }
+    }
+
+    public void mostrarInfoCliente() {
         System.out.println("DNI: " + DNI);
         System.out.println("Nombre: " + nombre);
-        System.out.println("NumSocio" + NumSocio);
-        System.out.println("Direccion: " + direccion);
-        System.out.println("Fechanacimiento: " + fechanacimiento);
-        System.out.println("Fechabaja: " + fechabaja);
-        System.out.println("peliculasalquiladas: " + peliculasalquiladas);
-
-    }
-    public void mostrarinfoNumsocio() {
-        System.out.println("Numsocio: " + Numsocios[0]);
+        System.out.println("NumSocio: " + numSocio);
+        System.out.println("Dirección: " + direccion);
+        System.out.println("Fecha nacimiento: " + fechaNacimiento);
+        System.out.println("Fecha baja: " + fechaBaja);
     }
 
-    public static void ultimaspeliculasalquiladas() {
-        System.out.println("mostrarPeliculasalquiladas()");
+    public void mostrarPeliculasAlquiladas() {
+        System.out.println("Películas alquiladas:");
+        for (Clasepelicula p : peliculasAlquiladas) {
+            if (p != null) System.out.println("- " + p.getTitulo());
+        }
     }
 }

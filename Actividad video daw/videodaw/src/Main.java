@@ -1,74 +1,103 @@
+import java.time.LocalDate;
 import java.util.Scanner;
+import java.util.regex.Pattern;
 
 public class Main {
     public static void main(String[] args) {
-
+        int DNI = 0;
         Scanner sc = new Scanner(System.in);
+        videoDaw videoclub = new videoDaw();
+        boolean salir = false;
 
-        System.out.println("====MENU DEL VIDEOCLUB====");
-
-
-        Clasepelicula pelicula = new Clasepelicula();
-
-        int opcion;
-
-        do{
-            System.out.println("1. Crear y registrar VideoClub");
-            System.out.println("2. Registrar pelicula en VideoClub");
+        while (!salir) {
+            System.out.println("\n--- MENÚ VIDEOCLUB ---");
+            System.out.println("1. Crear y registrar VideoClub en la franquicia");
+            System.out.println("2. Registrar película en videoclub");
             System.out.println("3. Crear y registrar cliente en videoclub");
-            System.out.println("4. Alquilar pelicula");
-            System.out.println("5. Devolver pelicula");
+            System.out.println("4. Alquilar película");
+            System.out.println("5. Devolver película");
             System.out.println("6. Dar de baja cliente");
-            System.out.println("7. Dar de baja pelicula");
+            System.out.println("7. Dar de baja película");
             System.out.println("8. Salir");
-            System.out.println("seleccione una opcion: ");
+            System.out.print("Seleccione una opción: ");
 
-            opcion = sc.nextInt();
+            int opcion = sc.nextInt();
             sc.nextLine();
 
-            switch(opcion){
+            switch (opcion) {
                 case 1:
-                    System.out.println("Introduce la CIF: ");
-                        String CIF = sc.nextLine();
+                    System.out.print("Ingrese CIF del Videoclub: ");
+                    String cif = sc.nextLine();
+                    System.out.print("Ingrese dirección del Videoclub: ");
+                    String direccion = sc.nextLine();
+                    System.out.print("Ingrese fecha de alta (YYYY-MM-DD): ");
+                    LocalDate fechaAlta = LocalDate.parse(sc.nextLine());
+                    System.out.println("Videoclub registrado con éxito.");
+                    break;
 
-                    System.out.println("Introduce la direccion : ");
-                        String direccion = sc.nextLine();
-
-                    System.out.println("Introduce la fecha de Apertura : ");
-                        String fechaApertura = sc.nextLine();
-                        break;
                 case 2:
-                    System.out.println("Registrar pelicula:");
-                    String isAlquilada = sc.nextLine();
-                        break;
+                    System.out.print("Código película: ");
+                    String codP = sc.nextLine();
+                    System.out.print("Título película: ");
+                    String titulo = sc.nextLine();
+                    System.out.print("Género (ACCION, COMEDIA, TERROR, DRAMA, AVENTURA, AMOR): ");
+                    String generoStr = sc.nextLine().toUpperCase();
+                    Clasepelicula.Genero genero = Clasepelicula.Genero.valueOf(generoStr);
+                    Clasepelicula nuevaPeli = new Clasepelicula(codP, titulo, generoStr);
+                    videoclub.registrarPelicula(nuevaPeli);
+                    break;
+
                 case 3:
-                    System.out.println("Registrar cliente:");
+                    System.out.print("DNI cliente: ");
+                    String dni = sc.nextLine();
+                    System.out.print("Nombre cliente: ");
+                    String nombre = sc.nextLine();
+                    System.out.print("Número de socio: ");
+                    String numSocio = sc.nextLine();
+                    System.out.print("Fecha nacimiento (DD-MM-YYYY): ");
+                    LocalDate fechaNac = LocalDate.parse(sc.nextLine());
+                    Clasecliente nuevoCliente = new Clasecliente(dni, nombre, numSocio, fechaNac);
+                    videoclub.registrarCliente(nuevoCliente);
+                    break;
 
-                        break;
                 case 4:
-                    System.out.println("Alquilar pelicula:");
-                        String isAlquilada2 = sc.nextLine();
-                        System.out.println("Pelicula alquilada");
-                        break;
-                case 5:
-                    System.out.println("Devolver pelicula:");
+                    System.out.print("Código película a alquilar: ");
+                    String codAlq = sc.nextLine();
+                    System.out.print("DNI cliente: ");
+                    String dniAlq = sc.nextLine();
+                    videoclub.alquilarPelicula(codAlq, dniAlq);
+                    break;
 
-                        break;
+                case 5:
+                    System.out.print("Código película a devolver: ");
+                    String codDev = sc.nextLine();
+                    System.out.print("DNI cliente: ");
+                    String dniDev = sc.nextLine();
+                    videoclub.devolverPelicula(codDev, dniDev);
+                    break;
+
                 case 6:
-                    System.out.println("Dar de baja cliente:");
-                        break;
+                    System.out.print("DNI cliente a dar de baja: ");
+                    String dniBaja = sc.nextLine();
+                    videoclub.darBajaCliente(dniBaja);
+                    break;
+
                 case 7:
-                    System.out.println("Dar de baja pelicula:");
-                        break;
+                    System.out.print("Código película a dar de baja: ");
+                    String codBaja = sc.nextLine();
+                    videoclub.darBajaPelicula(codBaja);
+                    break;
+
                 case 8:
-                    System.out.println("Saliendno del progrma...");
-                        break;
+                    salir = true;
+                    System.out.println("Programa terminado.");
+                    break;
+
                 default:
-                    System.out.println("Opcion incorrecta");
+                    System.out.println("Opción no válida, intente de nuevo.");
             }
-        }while (opcion != 8);
-    }
-    private boolean validarCIF(String CIF){
-        return CIF.matches("[0-9]{4}");
+        }
+
+        sc.close();
     }
 }
