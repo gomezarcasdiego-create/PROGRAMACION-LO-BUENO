@@ -54,7 +54,7 @@ public class Main {
                     String nombre = sc.nextLine();
                     System.out.print("Número de socio: ");
                     String numSocio = sc.nextLine();
-                    System.out.print("Fecha nacimiento (DD-MM-YYYY): ");
+                    System.out.print("Fecha nacimiento (YYYY-MM-DD): ");
                     LocalDate fechaNac = LocalDate.parse(sc.nextLine());
                     Clasecliente nuevoCliente = new Clasecliente(dni, nombre, numSocio, fechaNac);
                     videoclub.registrarCliente(nuevoCliente);
