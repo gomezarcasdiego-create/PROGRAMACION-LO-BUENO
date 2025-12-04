@@ -50,6 +50,14 @@ public abstract class Astros {
         this.DiametroMedio = Distanciamediaaesecuerpo;
     }
 
-    
+    public Astros (String MasaCuerpo, String DiametroMedio) {
+        this.MasaCuerpo = MasaCuerpo;
+        this.DiametroMedio = DiametroMedio;
+    }
+    @Override
+    public String toString(){
+        return "Astros [ MasaCuerpo=" + MasaCuerpo + ", DiametroMedio=" + DiametroMedio + "]";
+    }
+
 }
 
