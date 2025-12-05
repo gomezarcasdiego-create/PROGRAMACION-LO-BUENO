@@ -1,4 +1,6 @@
-public class Planetas {
+import java.util.Scanner;
+    public class Planetas {
+
     private String DisatanciaAlSol;
     private String OrbitaAlSol;
     private String TieneSatelite;
@@ -40,5 +42,11 @@ public class Planetas {
         return "Planetas [OrbitaAlSol=" + OrbitaAlSol + ", DisatanciaAlSol=" + DisatanciaAlSol + "]";
     }
 
-
+    public String SistemaSolar(Planetas planetas) {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("SistemaSolar");
+        String SistemaSolar = sc.nextLine();
+        sc.close();
+        return "Sistema Solar";
+    }
 }

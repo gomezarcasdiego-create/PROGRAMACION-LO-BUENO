@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 public class Satelite {
     private String DistanciaAlPlaneta;
     private String OrbitaPlanetaria;
@@ -38,4 +40,11 @@ public class Satelite {
         return "Satelite [ DistanciaAlPlaneta=" + DistanciaAlPlaneta + ", OrbitaPlanetaria=" + OrbitaPlanetaria + "]";
     }
 
+    public String SistemaSolar(Satelite satelite) {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Sistema Solar");
+        String SistemaSolar = sc.nextLine();
+        sc.close();
+        return "Sistema Solar";
+    }
 }
