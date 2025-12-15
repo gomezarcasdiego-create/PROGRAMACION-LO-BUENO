@@ -1,52 +1,37 @@
-import java.util.Scanner;
-    public class Planetas {
+public class Planetas extends Astros {
 
-    private String DisatanciaAlSol;
-    private String OrbitaAlSol;
-    private String TieneSatelite;
+    private String satelites;
 
-    public Planetas(String DisatanciaAlSol, String OrbitaAlSol, String TieneSatelite) {
-        this.DisatanciaAlSol = DisatanciaAlSol;
-        this.OrbitaAlSol = OrbitaAlSol;
-        this.TieneSatelite = TieneSatelite;
-    }
+    public Planetas(String nombre, double masa, double diametro,
+                   double rotacion, double traslacion,
+                   double distancia, String satelites) {
 
-    public String getDisatanciaAlSol() {
-        return DisatanciaAlSol;
-    }
-    public void setDisatanciaAlSol(String DisataciaAlSol) {
-        this.DisatanciaAlSol = DisataciaAlSol;
+        super(nombre, masa, diametro, rotacion, traslacion, distancia);
+        this.satelites = satelites;
     }
 
-    public String getOrbitaAlSol() {
-        return OrbitaAlSol;
-    }
-    public void setOrbitaAlSol(String OrbitaAlSol) {
-        this.OrbitaAlSol = OrbitaAlSol;
-    }
-
-    public String getTieneSatelite() {
-        return TieneSatelite;
-    }
-    public void setTieneSatelite(String TieneSatelite) {
-        this.TieneSatelite = TieneSatelite;
-    }
-
-    public Planetas(String OrbitaAlSol, String DistanciaAlSol) {
-        this.OrbitaAlSol = OrbitaAlSol;
-        this.DisatanciaAlSol = DistanciaAlSol;
+    public Planetas(String nombre) {
     }
 
     @Override
-    public String toString() {
-        return "Planetas [OrbitaAlSol=" + OrbitaAlSol + ", DisatanciaAlSol=" + DisatanciaAlSol + "]";
+    public void mostrar() {
+        System.out.println("PLANETA: " + nombre);
+        System.out.println("Masa: " + masa);
+        System.out.println("Diámetro: " + diametro);
+        System.out.println("Rotación: " + rotacion);
+        System.out.println("Traslación: " + traslacion);
+        System.out.println("Distancia al Sol: " + distancia);
+        System.out.println("Satélites: " + satelites);
     }
 
-    public String SistemaSolar(Planetas planetas) {
-        Scanner sc = new Scanner(System.in);
-        System.out.print("SistemaSolar");
-        String SistemaSolar = sc.nextLine();
-        sc.close();
-        return "Sistema Solar";
+    public String getNombre() {
+        return nombre;
     }
+
+    public void insertarSatelite(String nombreSat) {
+    }
+
+    public void eliminarSatelite(String nombreSat) {
+    }
+
 }

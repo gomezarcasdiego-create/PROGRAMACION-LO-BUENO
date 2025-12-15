@@ -1,63 +1,53 @@
-import com.sun.source.tree.StringTemplateTree;
-
-import java.time.LocalDate;
-
 public abstract class Astros {
-    private String MasaCuerpo;
-    private String DiametroMedio;
-    private LocalDate periododerotacionsobresupropioeje;
-    private LocalDate periododetranslacionalrededordelcuerpoqueorbitan;
-    private String Distanciamediaaesecuerpo;
 
-    public Astros(String MasaCuerpo, String DiametroMedio, String Distanciamediaaesecuerpo) {
-       this.MasaCuerpo = MasaCuerpo;
-       this.DiametroMedio = DiametroMedio;
-       this.Distanciamediaaesecuerpo = Distanciamediaaesecuerpo;
-    }
-    public String getMasaCuerpo() {
-        return MasaCuerpo;
-    }
-    public void setMasaCuerpo(String MasaCuerpo) {
-        this.MasaCuerpo = MasaCuerpo;
-    }
+    protected String nombre;
+    protected double masa;
+    protected double diametro;
+    protected double rotacion;
+    protected double traslacion;
+    protected double distancia;
 
-    public String getDiametroMedio() {
-        return DiametroMedio;
-    }
-    public void setDiametroMedio(String DiametroMedio) {
-        this.DiametroMedio = DiametroMedio;
+    public Astros(String nombre, double masa, double diametro,
+                 double rotacion, double traslacion, double distancia) {
+        this.nombre = nombre;
+        this.masa = masa;
+        this.diametro = diametro;
+        this.rotacion = rotacion;
+        this.traslacion = traslacion;
+        this.distancia = distancia;
     }
 
-    public LocalDate getPeriododerotacionsobresupropioeje() {
-        return periododerotacionsobresupropioeje;
-    }
-    public void setPeriododerotacvionsobresupropioeje(String Periododerotacvionsobresupropioeje) {
-        this.DiametroMedio = DiametroMedio;
+    public Astros() {
+
     }
 
-    public LocalDate getPeriododetranslacionalrededordelcuerpoqueorbitan() {
-        return periododetranslacionalrededordelcuerpoqueorbitan;
+    public abstract void mostrar();
+
+    public void mostrarInfo() {
     }
 
-    public void setPeriododetranslacionalrededordelcuerpoqueorbitan(LocalDate periododetranslacionalrededordelcuerpoqueorbitan) {
-        this.periododetranslacionalrededordelcuerpoqueorbitan = periododetranslacionalrededordelcuerpoqueorbitan;
-    }
+    public abstract class Astro {
 
-    public String getDistanciamediaaesecuerpo() {
-        return Distanciamediaaesecuerpo;
-    }
-    public void setDistanciamediaaesecuerpo(String Distanciamediaaesecuerpo) {
-        this.DiametroMedio = Distanciamediaaesecuerpo;
-    }
+        protected String nombre;
 
-    public Astros (String MasaCuerpo, String DiametroMedio) {
-        this.MasaCuerpo = MasaCuerpo;
-        this.DiametroMedio = DiametroMedio;
-    }
-    @Override
-    public String toString(){
-        return "Astros [ MasaCuerpo=" + MasaCuerpo + ", DiametroMedio=" + DiametroMedio + "]";
-    }
+        public Astro(String nombre) {
+            this.nombre = nombre;
+        }
 
+        public Astro(String nombre, double masa, double diametro, double rotacion, double traslacion, double distancia) {
+        }
+
+
+        public String getNombre() {
+            return nombre;
+        }
+
+        public abstract void mostrar();
+
+        public abstract void mostrarInfo();
+    }
 }
+
+
+
 
