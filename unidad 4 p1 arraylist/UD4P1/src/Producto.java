@@ -1,81 +1,43 @@
 import java.util.Objects;
 
-public class Producto {
-    private String a1;
-    private String a2;
-    private String a3;
-    private String a4;
-    private String a5;
+public class Producto implements Comparable<Producto>{
+    private String nombre;
+    int cantidad;
 
-    public Producto(String a1, String a2, String a3, String a4, String a5) {
-        this.a1 = a1;
-        this.a2 = a2;
-        this.a3 = a3;
-        this.a4 = a4;
-        this.a5 = a5;
+
+    public Producto(String nombre, int cantidad) {
+        this.nombre = nombre;
+        this.cantidad = cantidad;
     }
 
-    public String getA4() {
-        return a4;
+    public String getNombre() {
+        return nombre;
     }
 
-    public String getA5() {
-        return a5;
+    public int getCantidad() {
+        return cantidad;
     }
 
-    public String getA3() {
-        return a3;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
-    public String getA2() {
-        return a2;
-    }
-
-    public String getA1() {
-        return a1;
-    }
-
-    public void setA1(String a1) {
-        this.a1 = a1;
-    }
-
-    public void setA2(String a2) {
-        this.a2 = a2;
-    }
-
-    public void setA3(String a3) {
-        this.a3 = a3;
-    }
-
-    public void setA4(String a4) {
-        this.a4 = a4;
-    }
-
-    public void setA5(String a5) {
-        this.a5 = a5;
+    public void setCantidad(int cantidad) {
+        this.cantidad = cantidad;
     }
 
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder("Producto{");
-        sb.append("a1='").append(a1).append('\'');
-        sb.append(", a2='").append(a2).append('\'');
-        sb.append(", a3='").append(a3).append('\'');
-        sb.append(", a4='").append(a4).append('\'');
-        sb.append(", a5='").append(a5).append('\'');
-        sb.append('}');
-        return sb.toString();
+        return "Producto{" +
+                "nombre='" + nombre + '\'' +
+                ", cantidad=" + cantidad +
+                '}';
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        return Objects.equals(this, o);
-    }
 
     @Override
-    public int hashCode() {
-        return Objects.hash(a1, a2, a3, a4, a5);
+    public int compareTo(Producto o) {
+
+        return 0;
     }
 }
