@@ -21,6 +21,8 @@ public class Agenda {
             return;
         }
 
+        boolean valido = true;
+
         System.out.print("Teléfono: ");
         String telefono = sc.nextLine();
 
@@ -29,12 +31,21 @@ public class Agenda {
 
         if (!correoValido(correo)) {
             System.out.println("Correo no válido.");
-            return;
+            valido = false;
         }
 
-        Contacto nuevo = new Contacto(nombre, telefono, correo);
-        contactos.add(nuevo);
-        System.out.println("Contacto añadido correctamente.");
+        if(!telefonoValido(telefono)) {
+            System.out.println("telefono no valido.");
+            valido = false;
+        }
+
+
+        if(valido){
+            Contacto nuevo = new Contacto(nombre, telefono, correo);
+            contactos.add(nuevo);
+            System.out.println("Contacto añadido correctamente.");
+        }
+
     }
 
     public void buscaContacto() {
@@ -87,6 +98,11 @@ public class Agenda {
     private boolean correoValido(String correo) {
         String regex = "^[a-z0-9_.-]+@[a-z]+\\.[a-z]{2,4}$";
         return correo.matches(regex);
+    }
+
+    private boolean telefonoValido(String telefono) {
+        String regex = "^[0-9]{9}$";
+        return telefono.matches(regex);
     }
 
     public String numeroContactos() {

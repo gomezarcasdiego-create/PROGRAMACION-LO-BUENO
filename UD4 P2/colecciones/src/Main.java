@@ -3,11 +3,16 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
 
-    Scanner sc = new Scanner(System.in);
-    Agenda agenda = new Agenda();
-    int opcion = 0;
+        Scanner sc = new Scanner(System.in);
+        Agenda agenda = new Agenda();
+        int opcion = 0;
+        String opcionCorrecta = " ";
+        String opcionUsuario;
+        boolean esCorrecta = false;
+        Scanner lector = new Scanner(System.in);
 
-    do{
+        do {
+
         System.out.println("\n----- MENÚ AGENDA -----");
         System.out.println("1. Añadir Contacto");
         System.out.println("2. Buscar Contactos");
@@ -41,10 +46,19 @@ public class Main {
 
             default:
                 System.out.println("opcion invalida");
+
+
+                opcionUsuario = lector.nextLine();
+
+
+                if (opcionUsuario.equals(opcionCorrecta)) {
+                    System.out.println("¡Opción correcta!");
+                    esCorrecta = true;
+                } else {
+                    System.out.println("Opción incorrecta. Inténtalo de nuevo.");
+                }while (!esCorrecta);
         }
     }while (opcion != 6);
-
-    sc.close();
 
     }
 }
