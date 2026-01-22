@@ -2,11 +2,12 @@ public class Coche {
 
     private String color;
     private String marca;
-    private String matricula;
+    String matricula;
 
     public Coche(String color, String marca, String matricula) {
         this.color = color;
         this.marca = marca;
+        this.matricula = matricula;
     }
 
     public String getMarca() {
@@ -33,6 +34,7 @@ public class Coche {
                 '}';
     }
 
-
-
+    public String matricula() {
+        return matricula;
+    }
 }

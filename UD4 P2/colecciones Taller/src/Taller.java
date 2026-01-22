@@ -6,6 +6,8 @@ public class Taller {
 
     private HashMap<String, Coche> coches;
     private Scanner sc;
+    boolean matriculaValido = false;
+
 
     public Taller() {
         coches = new HashMap<>();
@@ -17,12 +19,12 @@ public class Taller {
         String matricula = sc.nextLine().toUpperCase();
 
         if (!validarMatricula(matricula)) {
-            System.out.println("Matrícula no válida.");
+            System.out.println("Matrícula no válida");
             return;
         }
 
         if (coches.containsKey(matricula)) {
-            System.out.println("Ya existe un coche con esa matrícula.");
+            System.out.println("Ya existe un coche con esa matrícula");
             return;
         }
 
@@ -35,7 +37,7 @@ public class Taller {
         Coche coche = new Coche(color, marca, matricula);
         coches.put(matricula, coche);
 
-        System.out.println("Coche añadido correctamente.");
+        System.out.println("Coche añadido correctamente");
     }
 
     public void eliminaCoche() {
@@ -43,15 +45,15 @@ public class Taller {
         String matricula = sc.nextLine().toUpperCase();
 
         if (coches.remove(matricula) != null) {
-            System.out.println("Coche eliminado correctamente.");
+            System.out.println("Coche eliminado correctamente");
         } else {
-            System.out.println("No existe ningún coche con esa matrícula.");
+            System.out.println("No existe ningún coche con esa matrícula");
         }
     }
 
     public void visualizaMatriculas() {
         if (coches.isEmpty()) {
-            System.out.println("No hay coches en el taller.");
+            System.out.println("No hay coches en el taller");
             return;
         }
 
@@ -63,20 +65,21 @@ public class Taller {
 
     public void visualizaCoches() {
         if (coches.isEmpty()) {
-            System.out.println("No hay coches en el taller.");
+            System.out.println("No hay coches en el taller");
             return;
         }
 
         System.out.println("Coches en el taller:");
         for (Coche coche : coches.values()) {
             System.out.println("Marca: " + coche.getMarca() +
-                    ", Color: " + coche.getColor());
+                    ", Color: " + coche.getColor() + ", matricula: "
+            + coche.matricula());
         }
     }
 
     public void visualizaTaller() {
         if (coches.isEmpty()) {
-            System.out.println("No hay coches en el taller.");
+            System.out.println("No hay coches en el taller");
             return;
         }
 
