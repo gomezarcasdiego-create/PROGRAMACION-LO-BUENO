@@ -26,5 +26,4 @@ public class contacto {
                 ", telefono='" + telefono + '\'' +
                 '}';
     }
-    
 }
