@@ -146,7 +146,7 @@ public class Main {
             for (Gato g : gatos) {
                 System.out.println(g);
             }
-            
+
             sc.close();
         }
     }
