@@ -29,9 +29,7 @@ public class cuentabancaria {
     public double getSaldo() {
         return Saldo;
     }
-    public Movimiento[] getMovimientos() {
-        return Movimientos;
-    }
+
 
 
 

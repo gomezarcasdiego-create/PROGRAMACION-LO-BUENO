@@ -36,15 +36,17 @@ public class Movimiento {
         return Cantidad;
     }
 
-    public String Movimiento() {
+    @Override
+    public String toString() {
+        return "Movimiento{" +
+                "ID=" + ID +
+                ", Fecha='" + Fecha + '\'' +
+                ", Tipo='" + Tipo + '\'' +
+                ", Cantidad=" + Cantidad +
+                '}';
+    }
 
-        String info = "";
-
-        info = "ID" + this.ID;
-        info += "\nFecha" + this.Fecha;
-        info += "\nTipo" + this.Tipo;
-        info += "\nCantidad" + this.Cantidad;
-
-        return info;
+    public boolean Movimiento() {
+        return true;
     }
 }

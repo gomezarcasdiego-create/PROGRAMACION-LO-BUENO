@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.regex.Pattern;
 
 public class Main {
 
@@ -7,14 +8,22 @@ public class Main {
         Scanner sc = new Scanner(System.in);
 
         System.out.println("=== Crear cuenta bancaria ===");
-        System.out.print("Introduce IBAN: ");
-        String iban = sc.nextLine();
 
-        System.out.print("Introduce titular: ");
-        String titular = sc.nextLine();
 
-        cuentabancaria cuenta = new cuentabancaria(iban, titular);
 
+
+        String IBAN;
+        do {
+            System.out.println("Introduzca el IBAN (XX0000000000000000000000):");
+            IBAN = sc.nextLine().toUpperCase().trim();
+        } while (!checkIBAN(IBAN));
+
+        String titular;
+        do{
+            System.out.println("introduce el titular: ");
+            titular = sc.nextLine().toUpperCase().trim();
+        }while (!checktitular(titular));
+        cuentabancaria cuenta = new cuentabancaria(IBAN, titular);
 
         int opcion;
 
@@ -82,17 +91,14 @@ public class Main {
         } while (opcion != 8);
 
     }
-    private boolean validarIBAN(String IBAN) {
 
-        if (IBAN.length() != 24) return false;
+    public static boolean checkIBAN(String IBAN) {
+        String regex = "^[A-Z]{2}[0-9]{22}$";
+        return Pattern.matches(regex, IBAN);
+    }
 
-        String letras = IBAN.substring(0, 2);
-        String numeros = IBAN.substring(2);
-
-        if (!letras.matches("[A-Za-z]{2}")) return false;
-
-        if (!numeros.matches("[0-9]{22}")) return false;
-
-        return true;
+    public static boolean checktitular(String titular) {
+        String regex = "^[A-Z]{3,}";
+        return Pattern.matches(regex, titular);
     }
 }
