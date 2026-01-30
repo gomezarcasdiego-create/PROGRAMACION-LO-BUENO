@@ -1,2 +1,4 @@
-public class AvisarHaciendaException {
+public class AvisarHaciendaException extends Exception {
+
+
 }

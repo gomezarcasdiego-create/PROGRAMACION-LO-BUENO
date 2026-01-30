@@ -1,2 +1,2 @@
-public class CuentaException {
+public class CuentaException extends Exception {
 }

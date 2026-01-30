@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import java.util.Collection;
+
 public class cuentabancaria {
 
     private static final double SALDO_MINIMO = -50;
@@ -30,8 +33,11 @@ public class cuentabancaria {
         return Saldo;
     }
 
+    private Collection<Movimiento> getMovimientos;
 
-
+    public void getMovimiento(){
+        this.Movimientos = new ArrayList<>().toArray(new Movimiento[0]);
+    }
 
     private void registrarMovimiento(Movimiento mov) {
         if (contadorMovimientos < MAX_MOVIMIENTOS) {
