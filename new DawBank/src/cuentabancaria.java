@@ -8,7 +8,7 @@ public class cuentabancaria {
     private static final int MAX_MOVIMIENTOS = 100;
 
     private String IBAN;
-    private String Titular;
+    private String Cliente;
     private double Saldo;
     private Movimiento[] Movimientos;
     private int contadorMovimientos;
@@ -17,7 +17,7 @@ public class cuentabancaria {
 
 
         this.IBAN = IBAN;
-        this.Titular = Titular;
+        this.Cliente = Cliente;
         this.Saldo = 0;
         this.Movimientos = new Movimiento[MAX_MOVIMIENTOS];
         this.contadorMovimientos = 0;
@@ -27,7 +27,8 @@ public class cuentabancaria {
         return IBAN;
     }
     public String getTitular() {
-        return Titular;
+        return Cliente;
+        
     }
     public double getSaldo() {
         return Saldo;
