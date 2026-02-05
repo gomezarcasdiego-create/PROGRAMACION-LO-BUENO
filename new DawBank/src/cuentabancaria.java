@@ -28,7 +28,7 @@ public class cuentabancaria {
     }
     public String getTitular() {
         return Cliente;
-        
+
     }
     public double getSaldo() {
         return Saldo;
