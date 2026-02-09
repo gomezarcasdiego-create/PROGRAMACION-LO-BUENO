@@ -1,56 +1,20 @@
-public class Producto {
+import java.io.Serializable;
 
-    String Codigo;
-    String Nombre;
-    String Precio;
-    String cantidad;
+public class Producto implements Serializable {
 
-    public Producto(String codigo, String nombre, String precio, String cantidad) {
-        Codigo = codigo;
-        Nombre = nombre;
-        Precio = precio;
+    int codigo;
+    String nombre;
+    int cantidad;
+    double precio;
+
+    public Producto(int codigo, String nombre, int cantidad, double precio) {
+        this.codigo = codigo;
+        this.nombre = nombre;
         this.cantidad = cantidad;
+        this.precio = precio;
     }
 
-    public String getCodigo() {
-        return Codigo;
-    }
-
-    public String getNombre() {
-        return Nombre;
-    }
-
-    public String getPrecio() {
-        return Precio;
-    }
-
-    public String getCantidad() {
-        return cantidad;
-    }
-
-    public void setCodigo(String codigo) {
-        Codigo = codigo;
-    }
-
-    public void setNombre(String nombre) {
-        Nombre = nombre;
-    }
-
-    public void setPrecio(String precio) {
-        Precio = precio;
-    }
-
-    public void setCantidad(String cantidad) {
-        this.cantidad = cantidad;
-    }
-
-    @Override
     public String toString() {
-        return "Producto{" +
-                "Codigo='" + Codigo + '\'' +
-                ", Nombre='" + Nombre + '\'' +
-                ", Precio='" + Precio + '\'' +
-                ", cantidad='" + cantidad + '\'' +
-                '}';
+        return codigo + " - " + nombre + " - " + cantidad + " - " + precio;
     }
 }
