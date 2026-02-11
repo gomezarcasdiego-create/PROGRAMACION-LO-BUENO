@@ -9,7 +9,7 @@ public class Main {
 
     public static void main(String[] args) {
 
-        cargar();  // 🔹 Cargar datos al iniciar
+        cargar();
 
         int opcion;
 
