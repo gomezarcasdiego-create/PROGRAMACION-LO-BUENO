@@ -15,6 +15,9 @@ public class Producto implements Serializable {
     }
 
     public String toString() {
-        return codigo + " - " + nombre + " - " + cantidad + " - " + precio;
+        return "Código: " + codigo +
+                " | Nombre: " + nombre +
+                " | Cantidad: " + cantidad +
+                " | Precio: " + precio;
     }
 }
