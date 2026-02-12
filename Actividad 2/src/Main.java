@@ -30,6 +30,8 @@ public class Main {
             }
 
         } while (opcion != 5);
+
+
     }
 
     static void crear() {
@@ -39,12 +41,22 @@ public class Main {
 
         System.out.print("Nombre: ");
         String n = sc.nextLine();
+        String nombre = "Juan Pérez";
+        if (n.matches("^[a-zA-ZáéíóúÁÉÍÓÚñÑüÜ'\\s-]+$")) {
+            System.out.println("Nombre válido");
+            nombre = n;
+        } else {
+            System.out.println("Nombre no válido");
+            return;
+        }
 
         System.out.print("Cantidad: ");
         int ca = sc.nextInt();
 
         System.out.print("Precio: ");
         double p = sc.nextDouble();
+        double d;
+        System.out.println(String.format("%.2f"));
 
         lista.add(new Producto(c, n, ca, p));
         System.out.println("Producto añadido");
@@ -65,7 +77,7 @@ public class Main {
         int c = sc.nextInt();
 
         for (int i = 0; i < lista.size(); i++) {
-            if (lista.get(i).codigo == c) {
+            if (lista.get(i).getCodigo() == c) {
                 lista.remove(i);
                 System.out.println("Producto eliminado");
                 return;
