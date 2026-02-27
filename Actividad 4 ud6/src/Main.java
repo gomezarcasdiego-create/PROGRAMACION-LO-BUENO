@@ -2,11 +2,22 @@ import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
+
+
 public class Main {
+
+    private static BufferedReader BufferedReader;
+
+    public class Inventario {
+        static List<Producto> productos = new ArrayList<>();
+    }
 
     private static List<Producto> lista = new ArrayList<>();
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
 
         cargarProductosCSV("productos.csv");
         cargarAlmacen("almacen.dat");
@@ -19,7 +30,6 @@ public class Main {
             System.out.println("1. Mostrar Productos");
             System.out.println("2. Eliminar Producto por referencia");
             System.out.println("3. Guardar y Salir");
-            System.out.println("4. Registrar Producto");
             System.out.print("Opción: ");
 
             try {
@@ -31,14 +41,11 @@ public class Main {
                         mostrarProductos();
                         break;
                     case 2:
-                        eliminarProducto(sc);
+                        eliminarProducto();
                         break;
                     case 3:
                         guardarInventario("inventario.dat");
                         System.out.println("Inventario guardado.");
-                        break;
-                    case 4:
-                        registrarProducto(sc);
                         break;
                     default:
                         System.out.println("Opción incorrecta.");
@@ -54,12 +61,15 @@ public class Main {
         sc.close();
     }
 
-    private static void cargarProductosCSV(String nombreFichero) {
+    private static void guardarInventario(String s) {
+    }
+
+    private static boolean cargarProductosCSV(String nombreFichero) throws IOException {
 
         File fichero = new File(nombreFichero);
         if (!fichero.exists()) {
             System.out.println("No existe el archivo CSV.");
-            return;
+            return false;
         }
 
         try (BufferedReader br = new BufferedReader(
@@ -73,29 +83,16 @@ public class Main {
 
                 String[] datos = linea.split(";");
 
-                if (datos.length < 8) {
-                    System.out.println("Línea incorrecta en CSV: " + linea);
-                    continue;
+                if (datos.length < 5) {
+                    System.out.println("" + linea);
+
                 }
-
-                Producto p = new Producto(
-                        datos[0],
-                        datos[1],
-                        datos[2],
-                        Integer.parseInt(datos[3]),
-                        Double.parseDouble(datos[4]),
-                        Integer.parseInt(datos[5]),
-                        Integer.parseInt(datos[6]),
-                        Boolean.parseBoolean(datos[7])
-                );
-
-                lista.add(p);
             }
 
-        } catch (Exception e) {
-            System.out.println("Error al cargar CSV: " + e.getMessage());
         }
+        return false;
     }
+
 
     private static void cargarAlmacen(String nombreFichero) {
 
@@ -105,98 +102,81 @@ public class Main {
             return;
         }
 
+
         try (ObjectInputStream ois =
                      new ObjectInputStream(new FileInputStream(nombreFichero))) {
 
             lista = (List<Producto>) ois.readObject();
 
         } catch (Exception e) {
-            System.out.println("Error al cargar almacén: " + e.getMessage());
+            System.out.println("");
         }
     }
 
-    private static void mostrarProductos() {
+    public static void mostrarProductos() {
+        try {
+            BufferedReader  = new BufferedReader(new FileReader("productos.csv"));
+            String linea;
 
-        if (lista.isEmpty()) {
-            System.out.println("No hay productos.");
-            return;
+            while ((linea = readLine()) != null) {
+                System.out.println(linea);
+            }
+
+            close();
+
+        } catch (IOException e) {
+            System.out.println("Error al leer el archivo.");
         }
 
-        for (Producto p : lista) {
-            System.out.println(p);
-        }
     }
 
-    private static void eliminarProducto(Scanner sc) {
+    private static String readLine() {
+        return "";
+    }
 
-        System.out.print("Referencia a eliminar: ");
+
+    public static void eliminarProducto() {
+
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Introduce la referencia a eliminar: ");
         String ref = sc.nextLine();
 
-        boolean eliminado = lista.removeIf(p -> p.getReferencia().equals(ref));
-
-        if (eliminado) {
-            System.out.println("Producto eliminado.");
-        } else {
-            System.out.println("Producto no encontrado.");
-        }
-    }
-
-    private static void registrarProducto(Scanner sc) {
-
         try {
+            BufferedReader br = new BufferedReader(new FileReader("productos.csv"));
+            ArrayList<String> lineas = new ArrayList<>();
+            String linea;
+            boolean eliminado = false;
 
-            System.out.print("Referencia: ");
-            String ref = sc.nextLine();
+            while ((linea = br.readLine()) != null) {
 
-            for (Producto p : lista) {
-                if (p.getReferencia().equals(ref)) {
-                    System.out.println("Referencia duplicada.");
-                    return;
+                String[] datos = linea.split(";");
+
+                if (!datos[1].equalsIgnoreCase(ref)) {
+                    lineas.add(linea);
+                } else {
+                    eliminado = true;
                 }
             }
 
-            System.out.print("Descripción: ");
-            String desc = sc.nextLine();
+            br.close();
 
-            System.out.print("Tipo: ");
-            String tipo = sc.nextLine();
+            BufferedWriter bw = new BufferedWriter(new FileWriter("productos.csv"));
 
-            System.out.print("Cantidad: ");
-            int cant = sc.nextInt();
+            for (String l : lineas) {
+                bw.write(l);
+                bw.newLine();
+            }
 
-            System.out.print("Precio: ");
-            double precio = sc.nextDouble();
+            bw.close();
 
-            System.out.print("Descuento: ");
-            int dto = sc.nextInt();
+            if (eliminado) {
+                System.out.println("Producto eliminado correctamente.");
+            } else {
+                System.out.println("No se encontró esa referencia.");
+            }
 
-            System.out.print("IVA: ");
-            int iva = sc.nextInt();
-
-            System.out.print("Aplicar descuento (true/false): ");
-            boolean aplicar = sc.nextBoolean();
-            sc.nextLine();
-
-            Producto nuevo = new Producto(ref, desc, tipo, cant, precio, dto, iva, aplicar);
-            lista.add(nuevo);
-
-            System.out.println("Producto registrado correctamente.");
-
-        } catch (InputMismatchException | ProductoException e) {
-            System.out.println("Error: formato numérico incorrecto.");
-            sc.nextLine();
-        }
-    }
-
-    private static void guardarInventario(String nombreFichero) {
-
-        try (ObjectOutputStream oos =
-                     new ObjectOutputStream(new FileOutputStream(nombreFichero))) {
-
-            oos.writeObject(lista);
-
-        } catch (Exception e) {
-            System.out.println("Error al guardar inventario: " + e.getMessage());
+        } catch (IOException e) {
+            System.out.println("Error con el archivo.");
         }
     }
 }
