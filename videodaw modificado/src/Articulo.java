@@ -1,52 +1,65 @@
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class Articulo {
-    private String Cod;
-    private String Titulo;
-    private LocalDate FechaRegistro;
-    private LocalDate FechaBaja;
 
-    public Articulo(String cod, String titulo, LocalDate fechaRegistro, LocalDate fechaBaja) {
-        Cod = cod;
-        Titulo = titulo;
-        FechaRegistro = fechaRegistro;
-        FechaBaja = fechaBaja;
+    private String cod;
+    private String titulo;
+    private LocalDate fecharegistro;
+    private LocalDate fechabaja;
+    private boolean isAlquilada;
+    private LocalDateTime fechaAlquiler;
+
+    public Articulo(String cod, String titulo) {
+        this.cod = cod;
+        this.titulo = titulo;
+        this.fecharegistro = LocalDate.now();
     }
 
-    public Articulo() {
+    public LocalDate getFechabaja() {
+        return fechabaja;
+    }
 
+    public void setFechabaja(LocalDate fechabaja) {
+        this.fechabaja = fechabaja;
+    }
+
+    public LocalDate getFechaRegistro() {
+        return fecharegistro;
     }
 
     public String getCod() {
-        return Cod;
-    }
-
-    public void setCod(String cod) {
-        Cod = cod;
+        return cod;
     }
 
     public String getTitulo() {
-        return Titulo;
+        return titulo;
     }
 
-    public void setTitulo(String titulo) {
-        Titulo = titulo;
+    public boolean isAlquilada() {
+        return isAlquilada;
     }
 
-    public LocalDate getfechaRegistro() {
-        LocalDate fechaRegistro = null;
-        return fechaRegistro;
+    public void setAlquilada(boolean alquilada) {
+        isAlquilada = alquilada;
     }
 
-    public void setFechaRegistro(LocalDate fechaRegistro) {
-        fechaRegistro = fechaRegistro;
+    public void setFechaAlquiler(LocalDateTime fechaAlquiler) {
+        this.fechaAlquiler = fechaAlquiler;
     }
 
-    public LocalDate getFechaBaja() {
-        return FechaBaja;
+    @Override
+    public String toString() {
+        return "Articulo{" +
+                "cod='" + cod + '\'' +
+                ", Titulo='" + titulo + '\'' +
+                ", FechaRegistro=" + fecharegistro +
+                ", FechaBaja=" + fechabaja +
+                '}';
     }
 
-    public void setFechaBaja(LocalDate fechaBaja) {
-        FechaBaja = fechaBaja;
+
+    public LocalDateTime getFechaAlquiler() {
+        return this.fechaAlquiler;
     }
 }

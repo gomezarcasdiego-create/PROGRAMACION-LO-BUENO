@@ -1,6 +1,5 @@
 import java.time.LocalDate;
 import java.util.Scanner;
-import java.util.regex.Pattern;
 
 public class Main {
     public static void main(String[] args) {
@@ -42,8 +41,8 @@ public class Main {
                     String titulo = sc.nextLine();
                     System.out.print("Género (ACCION, COMEDIA, TERROR, DRAMA, AVENTURA, AMOR): ");
                     String generoStr = sc.nextLine().toUpperCase();
-                    Clasepelicula.Genero genero = Clasepelicula.Genero.valueOf(generoStr);
-                    Clasepelicula nuevaPeli = new Clasepelicula(codP, titulo, generoStr);
+                    Pelicula.Genero genero = Pelicula.Genero.valueOf(generoStr);
+                    Pelicula nuevaPeli = new Pelicula(codP, titulo, generoStr);
                     videoclub.registrarPelicula(nuevaPeli);
                     break;
 
@@ -56,7 +55,7 @@ public class Main {
                     String numSocio = sc.nextLine();
                     System.out.print("Fecha nacimiento (YYYY-MM-DD): ");
                     LocalDate fechaNac = LocalDate.parse(sc.nextLine());
-                    Clasecliente nuevoCliente = new Clasecliente(dni, nombre, numSocio, fechaNac);
+                    Cliente nuevoCliente = new Cliente(dni, nombre, numSocio, fechaNac);
                     videoclub.registrarCliente(nuevoCliente);
                     break;
 
