@@ -60,17 +60,17 @@ public class videoDaw {
         System.out.println("Fecha Alta: " + fechaAlta);
     }
 
-    public void alquilarPelicula(String cod, String dni) {
+    public void alquilarArticulo(String cod, String dni) {
         Articulo a = buscarArticulo(cod);
         Cliente c = buscarCliente(dni);
 
         if (a == null || c == null) {
-            System.out.println("Película no existe.");
+            System.out.println("Articulo no existe.");
             return;
         }
 
         if (a.isAlquilada()) {
-            System.out.println("La articulo ya está alquilada.");
+            System.out.println("El articulo ya está alquilado.");
             return;
         }
 
@@ -78,7 +78,7 @@ public class videoDaw {
         a.setFechaAlquiler(LocalDateTime.now());
         c.alquilarArticulo(a);
 
-        System.out.println("Película alquilada.");
+        System.out.println("Articulo alquilado.");
     }
 
     public void devolverArticulo(String cod, String dni) {
@@ -86,7 +86,7 @@ public class videoDaw {
         Cliente c = buscarCliente(dni);
 
         if (a == null || c == null) {
-            System.out.println("Película o cliente no existe.");
+            System.out.println("Articulo o cliente no existe.");
             return;
         }
 
@@ -103,7 +103,7 @@ public class videoDaw {
         a.setFechaAlquiler(null);
         c.devolverArticulo(a);
 
-        System.out.println("Película devuelta.");
+        System.out.println("Articulo devuelto.");
     }
 
     public void darBajaCliente(String dni) {
@@ -126,10 +126,18 @@ public class videoDaw {
                 articulosRegistrados.get(i).setFechabaja(LocalDate.now());
                 articulosRegistrados.remove(i);
 
-                System.out.println("Película dada de baja.");
+                System.out.println("Articulo dado de baja.");
                 return;
             }
         }
-        System.out.println("Película no encontrada.");
+        System.out.println("Articulo no encontrado.");
+    }
+
+
+    public void mostrarInventario(){
+        for (Articulo p : articulosRegistrados) {
+            System.out.println(p.toString());
+        }
+
     }
 }
