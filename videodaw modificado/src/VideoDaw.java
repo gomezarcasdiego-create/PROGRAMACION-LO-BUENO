@@ -1,9 +1,13 @@
+import java.io.Serial;
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
-public class videoDaw {
+public class VideoDaw implements Serializable {
 
+    @Serial
+    private static final long serialVersionUID = -1908485806563607002L;
     private String CIF;
     private String direccion;
     private LocalDate fechaAlta;
@@ -11,7 +15,7 @@ public class videoDaw {
     private ArrayList <Articulo> articulosRegistrados;
     private ArrayList <Cliente> clientesRegistrados;
 
-    public videoDaw() {
+    public VideoDaw() {
         this.CIF = "A00000000";
         this.direccion = "Sin dirección";
         this.fechaAlta = LocalDate.now();
@@ -65,12 +69,12 @@ public class videoDaw {
         Cliente c = buscarCliente(dni);
 
         if (a == null || c == null) {
-            System.out.println("Articulo no existe.");
+            System.out.println("Película no existe.");
             return;
         }
 
         if (a.isAlquilada()) {
-            System.out.println("El articulo ya está alquilado.");
+            System.out.println("La pelicula ya está alquilada.");
             return;
         }
 
@@ -78,7 +82,7 @@ public class videoDaw {
         a.setFechaAlquiler(LocalDateTime.now());
         c.alquilarArticulo(a);
 
-        System.out.println("Articulo alquilado.");
+        System.out.println("Película alquilada.");
     }
 
     public void devolverArticulo(String cod, String dni) {
@@ -86,7 +90,7 @@ public class videoDaw {
         Cliente c = buscarCliente(dni);
 
         if (a == null || c == null) {
-            System.out.println("Articulo o cliente no existe.");
+            System.out.println("Película o cliente no existe.");
             return;
         }
 
@@ -103,7 +107,7 @@ public class videoDaw {
         a.setFechaAlquiler(null);
         c.devolverArticulo(a);
 
-        System.out.println("Articulo devuelto.");
+        System.out.println("Película devuelta.");
     }
 
     public void darBajaCliente(String dni) {
@@ -126,11 +130,11 @@ public class videoDaw {
                 articulosRegistrados.get(i).setFechabaja(LocalDate.now());
                 articulosRegistrados.remove(i);
 
-                System.out.println("Articulo dado de baja.");
+                System.out.println("Película dada de baja.");
                 return;
             }
         }
-        System.out.println("Articulo no encontrado.");
+        System.out.println("Película no encontrada.");
     }
 
 
@@ -140,4 +144,6 @@ public class videoDaw {
         }
 
     }
+
+
 }

@@ -147,29 +147,29 @@ public class Main {
     }
 
     public static VideoDaw cargarDatos() {
-        VideoDaw videoclub = new VideoDaw();
-        File archivo = new File("articulos.dat");
-        FileInputStream fis = null;
-        ObjectInputStream ois = null;
-        if(!archivo.exists()){
-            return new VideoDaw();
-        } else {
-            try {
-                fis = new FileInputStream(archivo);
+    VideoDaw videoclub = new VideoDaw();
+    File archivo = new File("articulos.dat");
+    FileInputStream fis = null;
+    ObjectInputStream ois = null;
+    if(!archivo.exists()){
+        return new VideoDaw();
+    } else {
+        try {
+            fis = new FileInputStream(archivo);
 
                 ois = new ObjectInputStream(fis);
-                videoclub = (VideoDaw) ois.readObject();
-                ois.close();
-                fis.close();
-                return videoclub;
-            } catch (FileNotFoundException e) {
-                throw new RuntimeException(e);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            } catch (ClassNotFoundException e) {
-                throw new RuntimeException(e);
-            }
+           videoclub = (VideoDaw) ois.readObject();
+           ois.close();
+           fis.close();
+           return videoclub;
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
         }
+    }
 
     }
     public static void guardarDatos(VideoDaw videoclub) {

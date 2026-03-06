@@ -19,7 +19,7 @@ public class Persona implements Serializable {
         }
         this.DNI = DNI;
         this.direccion = direccion;
-        this.nombre = nombre;
+                this.nombre = nombre;
     }
 
 
