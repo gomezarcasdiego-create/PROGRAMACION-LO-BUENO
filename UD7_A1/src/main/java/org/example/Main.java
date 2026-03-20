@@ -3,6 +3,7 @@ package org.example;
 import com.mysql.cj.protocol.a.SqlDateValueEncoder;
 
 import java.sql.SQLOutput;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -30,13 +31,16 @@ public class Main {
                             obtenerProductos();
                             break;
                         case "2":
-
+                            obtenerProductoReferencia();
                             break;
                         case "3":
+                            obtenerProductosPorTipo();
                             break;
                         case "4":
+                            obtenerProductosPorCantidad();
                             break;
                         case "5":
+
                             break;
                         case "6":
                             break;
@@ -66,6 +70,20 @@ public class Main {
     }
 
     private static void obtenerProductoReferencia(){
-        
+        List<String> productos = SQLDataAccessInventario.getReferenciasProducto();
+
     }
+
+    private static void obtenerProductosPorTipo(){
+        List<Tipo> tipos = SQLDataAccessInventario.getTipos();
+        for(Tipo tipo : tipos){
+            System.out.println(tipo);
+        }
+    }
+
+    private static void obtenerProductosPorCantidad(){
+        List<Producto> productos = SQLDataAccessInventario.getProductoCantidad();
+    }
+
+
 }

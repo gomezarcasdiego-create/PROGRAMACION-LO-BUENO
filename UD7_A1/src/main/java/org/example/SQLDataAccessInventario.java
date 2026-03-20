@@ -183,7 +183,7 @@ public class SQLDataAccessInventario {
         return productos;
     }
 
-    public static List<Producto> getProductoCantidad(int cantidad){
+    public static List<Producto> getProductoCantidad(){
         List<Producto> productos = new ArrayList<>();
         String sql = "SELECT * FROM PRODUCTOS WHERE CANTIDAD = ?";
 
