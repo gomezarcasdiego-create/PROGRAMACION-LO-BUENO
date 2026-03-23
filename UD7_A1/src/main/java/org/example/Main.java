@@ -15,15 +15,7 @@ public class Main {
             try(Scanner sc = new Scanner(System.in)){
                 String opcion = "9";
                 do{
-                    System.out.println("1. Mostrar todos los Productos en el Inventario.\n" +
-                            "2. Buscar producto por referencia.\n" +
-                            "3. Buscar productos por tipo.\n" +
-                            "4. Buscar producto por cantidad.\n" +
-                            "5. Insertar un nuevo producto (no permitir referencias repetidas).\n" +
-                            "6. Eliminar Producto por referencia.\n" +
-                            "7. Actualizar producto (descripción, cantidad, precio, descuento, AplicarDto).\n" +
-                            "8. Insertar un nuevo tipo de producto.\n" +
-                            "9. Salir");
+                    menu();
                     opcion = sc.nextLine();
 
                     switch(opcion){
@@ -37,7 +29,7 @@ public class Main {
                             obtenerProductosPorTipo();
                             break;
                         case "4":
-                            obtenerProductosPorCantidad();
+                            obtenerProductoCantidad(sc);
                             break;
                         case "5":
 
@@ -61,6 +53,24 @@ public class Main {
         }
     }
 
+    private static void menu() {
+        System.out.println("1. Mostrar todos los Productos en el Inventario.\n" +
+                "2. Buscar producto por referencia.\n" +
+                "3. Buscar productos por tipo.\n" +
+                "4. Buscar producto por cantidad.\n" +
+                "5. Insertar un nuevo producto (no permitir referencias repetidas).\n" +
+                "6. Eliminar Producto por referencia.\n" +
+                "7. Actualizar producto (descripción, cantidad, precio, descuento, AplicarDto).\n" +
+                "8. Insertar un nuevo tipo de producto.\n" +
+                "9. Salir");
+    }
+
+    private static void obtenerProductoCantidad(Scanner sc) {
+        System.out.println("Inserte la cantidad");
+        int cantidadBuscar = sc.nextInt();
+        SQLDataAccessInventario.getProductoCantidad(cantidadBuscar);
+    }
+
 
     private static void obtenerProductos(){
         List<Producto> productos = SQLDataAccessInventario.getProductos();
@@ -79,10 +89,6 @@ public class Main {
         for(Tipo tipo : tipos){
             System.out.println(tipo);
         }
-    }
-
-    private static void obtenerProductosPorCantidad(){
-        List<Producto> productos = SQLDataAccessInventario.getProductoCantidad();
     }
 
 
