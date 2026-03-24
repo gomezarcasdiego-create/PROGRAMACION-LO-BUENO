@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
-public class VideoDaw implements Serializable {
+  public class VideoDaw implements Serializable {
 
     @Serial
     private static final long serialVersionUID = -1908485806563607002L;
@@ -144,6 +144,4 @@ public class VideoDaw implements Serializable {
         }
 
     }
-
-
-}
+  }
