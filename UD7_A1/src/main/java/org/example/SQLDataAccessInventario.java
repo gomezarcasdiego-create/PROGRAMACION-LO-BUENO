@@ -48,7 +48,7 @@ public class SQLDataAccessInventario {
 
     public static List<Producto> getProductos() {
         List<Producto> productos = new ArrayList<>();
-        String sql = "SELECT * FROM PRODUCTOS";
+        String sql = "SELECT * FROM productos";
 
         try (Connection con = SQLDataBaseInventario.getConnection();
              Statement statement = con.createStatement();
