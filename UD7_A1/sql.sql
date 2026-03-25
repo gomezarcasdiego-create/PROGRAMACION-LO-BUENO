@@ -6,7 +6,7 @@ CREATE TABLE productos (
 Id 				INT 			NOT NULL,
 Referencia 		varchar(50)   	NOT NULL,
 Nombre 			varchar(50)		NOT NULL,
-Descripción 	varchar(100)	NOT NULL,
+Descripcion 	varchar(100)	NOT NULL,
 Tipo 			varchar(20)	    NOT NULL,
 Cantidad 		INT				NOT NULL,
 Precio 			double			NOT NULL,
@@ -32,7 +32,7 @@ INSERT INTO tipo (Id, nombre) VALUES
 (3, 'Alimentación');
 
 INSERT INTO productos 
-(Id, Referencia, Nombre, Descripción, Tipo, Cantidad, Precio, Descuento, IVA, AplicarDto, TipoId)
+(Id, Referencia, Nombre, Descripcion, Tipo, Cantidad, Precio, Descuento, IVA, AplicarDto, TipoId)
 VALUES
 (1, 'REF001', 'Laptop', 'Portátil 16GB RAM', 'Electrónica', 10, 900.50, 10, 21, true, 1),
 (2, 'REF002', 'Camiseta', 'Camiseta algodón', 'Ropa', 50, 15.99, 5, 21, true, 2),

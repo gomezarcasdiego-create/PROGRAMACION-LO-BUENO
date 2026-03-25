@@ -7,7 +7,7 @@ import java.util.List;
 public class SQLDataAccessInventario {
 
     public static void addProducto(Producto p) {
-        String sql = "INSERT INTO productos VALUES (?,?,?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO productos (Referencia, Nombre, Descripcion, Tipo, Cantidad, Precio, Descuento, Iva, AplicarDto) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         try (Connection con = SQLDataBaseInventario.getConnection();
              PreparedStatement statement = con.prepareStatement(sql)) {
@@ -105,14 +105,14 @@ public class SQLDataAccessInventario {
         return tipos;
     }
 
-    public static Producto getProductoReferencia(String referencia) {
+    public static Producto getProductoReferencia(String ref) {
 
         String sql = "SELECT * FROM productos WHERE Referencia = ?";
 
         try (Connection con = SQLDataBaseInventario.getConnection();
              PreparedStatement statement = con.prepareStatement(sql)) {
 
-            statement.setString(1, referencia);
+            statement.setString(1, ref);
 
             try (ResultSet rs = statement.executeQuery()) {
 
@@ -273,5 +273,13 @@ public class SQLDataAccessInventario {
             System.out.println(e.getMessage());
         }
         return referencias;
+    }
+
+    public static void buscarTipo(String nombre){
+
+        List<Producto> productos = new ArrayList<>();
+        String sql = "SELECT * FROM tipo WHERE nombre = ?";
+
+
     }
 }
