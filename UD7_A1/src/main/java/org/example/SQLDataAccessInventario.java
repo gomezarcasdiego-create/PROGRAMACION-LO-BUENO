@@ -7,7 +7,7 @@ import java.util.List;
 public class SQLDataAccessInventario {
 
     public static void addProducto(Producto p) {
-        String sql = "INSERT INTO PRODUCTOS VALUES (?,?,?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO productos VALUES (?,?,?,?,?,?,?,?,?)";
 
         try (Connection con = SQLDataBaseInventario.getConnection();
              PreparedStatement statement = con.prepareStatement(sql)) {
@@ -31,7 +31,7 @@ public class SQLDataAccessInventario {
     }
 
     public static void addTipo(Tipo t) {
-        String sql = "INSERT INTO TIPO VALUES (?)";
+        String sql = "INSERT INTO tipo VALUES (?)";
 
         try (Connection con = SQLDataBaseInventario.getConnection();
              PreparedStatement statement = con.prepareStatement(sql)) {
@@ -59,16 +59,16 @@ public class SQLDataAccessInventario {
                 Tipo t = new Tipo(rs.getNString("TIPO"));
 
                 Producto p = new Producto(
-                        rs.getInt("ID"),
-                        rs.getNString("REFERENCIA"),
-                        rs.getNString("NOMBRE"),
-                        rs.getNString("DESCRIPCION"),
+                        rs.getInt("Id"),
+                        rs.getString("Referencia"),
+                        rs.getString("Nombre"),
+                        rs.getString("Descripcion"),
                         t,
-                        rs.getInt("CANTIDAD"),
-                        rs.getDouble("PRECIO"),
-                        rs.getInt("DESCUENTO"),
-                        rs.getInt("IVA"),
-                        rs.getBoolean("APLICARDTO")
+                        rs.getInt("Cantidad"),
+                        rs.getDouble("Precio"),
+                        rs.getInt("Descuento"),
+                        rs.getInt("Iva"),
+                        rs.getBoolean("AplicarDto")
                 );
                 productos.add(p);
 
@@ -82,7 +82,7 @@ public class SQLDataAccessInventario {
 
     public static List<Tipo> getTipos() {
         List<Tipo> tipos = new ArrayList<>();
-        String sql = "SELECT * FROM TIPOS";
+        String sql = "SELECT * FROM tipo";
 
         try (Connection con = SQLDataBaseInventario.getConnection();
              Statement statement = con.createStatement();
@@ -107,7 +107,7 @@ public class SQLDataAccessInventario {
 
     public static Producto getProductoReferencia(String referencia) {
 
-        String sql = "SELECT * FROM PRODUCTOS WHERE REFERENCIA = ?";
+        String sql = "SELECT * FROM productos WHERE Referencia = ?";
 
         try (Connection con = SQLDataBaseInventario.getConnection();
              PreparedStatement statement = con.prepareStatement(sql)) {
@@ -121,16 +121,16 @@ public class SQLDataAccessInventario {
                     Tipo t = new Tipo(rs.getString("TIPO"));
 
                     Producto p = new Producto(
-                            rs.getInt("ID"),
-                            rs.getString("REFERENCIA"),
-                            rs.getString("NOMBRE"),
-                            rs.getString("DESCRIPCION"),
+                            rs.getInt("Id"),
+                            rs.getString("Referencia"),
+                            rs.getString("Nombre"),
+                            rs.getString("Descripcion"),
                             t,
-                            rs.getInt("CANTIDAD"),
-                            rs.getDouble("PRECIO"),
-                            rs.getInt("DESCUENTO"),
-                            rs.getInt("IVA"),
-                            rs.getBoolean("APLICARDTO")
+                            rs.getInt("Cantidad"),
+                            rs.getDouble("Precio"),
+                            rs.getInt("Descuento"),
+                            rs.getInt("Iva"),
+                            rs.getBoolean("AplicarDto")
                     );
 
                     return p;
@@ -146,7 +146,7 @@ public class SQLDataAccessInventario {
 
     public static List<Producto> getProductosTipo(String tipo){
         List<Producto> productos = new ArrayList<>();
-        String sql = "SELECT * FROM PRODUCTOS WHERE TIPO = ?";
+        String sql = "SELECT * FROM productos WHERE tipo = ?";
 
         try (Connection con = SQLDataBaseInventario.getConnection();
              PreparedStatement statement = con.prepareStatement(sql)) {
@@ -160,16 +160,16 @@ public class SQLDataAccessInventario {
                     Tipo t = new Tipo(rs.getString("TIPO"));
 
                     Producto p = new Producto(
-                            rs.getInt("ID"),
-                            rs.getString("REFERENCIA"),
-                            rs.getString("NOMBRE"),
-                            rs.getString("DESCRIPCION"),
+                            rs.getInt("Id"),
+                            rs.getString("Referencia"),
+                            rs.getString("Nombre"),
+                            rs.getString("Descripcion"),
                             t,
-                            rs.getInt("CANTIDAD"),
-                            rs.getDouble("PRECIO"),
-                            rs.getInt("DESCUENTO"),
-                            rs.getInt("IVA"),
-                            rs.getBoolean("APLICARDTO")
+                            rs.getInt("Cantidad"),
+                            rs.getDouble("Precio"),
+                            rs.getInt("Descuento"),
+                            rs.getInt("Iva"),
+                            rs.getBoolean("AplicarDto")
                     );
                     productos.add(p);
                 }
@@ -185,7 +185,7 @@ public class SQLDataAccessInventario {
 
     public static List<Producto> getProductoCantidad(int cantidad){
         List<Producto> productos = new ArrayList<>();
-        String sql = "SELECT * FROM PRODUCTOS WHERE CANTIDAD = ?";
+        String sql = "SELECT * FROM productos WHERE Cantidad = ?";
 
         try (Connection con = SQLDataBaseInventario.getConnection();
              PreparedStatement statement = con.prepareStatement(sql)) {
@@ -199,16 +199,16 @@ public class SQLDataAccessInventario {
                     Tipo t = new Tipo(rs.getString("TIPO"));
 
                     Producto p = new Producto(
-                            rs.getInt("ID"),
-                            rs.getString("REFERENCIA"),
-                            rs.getString("NOMBRE"),
-                            rs.getString("DESCRIPCION"),
+                            rs.getInt("Id"),
+                            rs.getString("Referencia"),
+                            rs.getString("Nombre"),
+                            rs.getString("Descripcion"),
                             t,
-                            rs.getInt("CANTIDAD"),
-                            rs.getDouble("PRECIO"),
-                            rs.getInt("DESCUENTO"),
-                            rs.getInt("IVA"),
-                            rs.getBoolean("APLICARDTO")
+                            rs.getInt("Cantidad"),
+                            rs.getDouble("Precio"),
+                            rs.getInt("Descuento"),
+                            rs.getInt("Iva"),
+                            rs.getBoolean("AplicarDto")
                     );
                     productos.add(p);
                 }
@@ -224,7 +224,7 @@ public class SQLDataAccessInventario {
 
 
     public static void removeProductoReferencia(String ref){
-        String sql = "DELETE FROM PRODUCTOS WHERE REFERENCIA=?";
+        String sql = "DELETE FROM productos WHERE Referencia=?";
 
         try(Connection con = SQLDataBaseInventario.getConnection();
             PreparedStatement statement = con.prepareStatement(sql)){
@@ -238,7 +238,7 @@ public class SQLDataAccessInventario {
     }
 
     public static void updateProducto(String referencia, String des, int cant, double precio, int descuento, boolean aplicarDto){
-        String sql = "UPDATE FROM PRODUCTOS SET DESCRIPCION = ?, CANTIDAD = ?, PRECIO= ?, DESCUENTO= ?, APLICARDTO= ? WHERE REFERENCIA = ?";
+        String sql = "UPDATE FROM productos SET Descripcion = ?, Cantidad = ?, Precio= ?, Descuento= ?, AplicarDto= ? WHERE Referencia = ?";
 
         try(Connection con = SQLDataBaseInventario.getConnection();
             PreparedStatement statement = con.prepareStatement(sql)){
@@ -259,14 +259,14 @@ public class SQLDataAccessInventario {
     public static List<String> getReferenciasProducto(){
         List<String> referencias = new ArrayList<>();
 
-        String sql = "SELECT REFERENCIA FROM PRODUCTOS";
+        String sql = "SELECT Referencia FROM Productos";
 
         try(Connection con = SQLDataBaseInventario.getConnection();
             Statement statement = con.createStatement();
             ResultSet rs = statement.executeQuery(sql)){
 
             while(rs.next()){
-                referencias.add(rs.getNString("REFERENCIA"));
+                referencias.add(rs.getNString("Referencia"));
             }
 
         } catch (SQLException e) {

@@ -149,9 +149,9 @@ public class Main {
 
                                 SQLDataAccessInventario.removeProductoReferencia(referencia);
 
-                                List<String> productos = SQLDataAccessInventario.getReferenciasProducto();
+                                List<String> Productos = SQLDataAccessInventario.getReferenciasProducto();
 
-                                if (!productos.contains(referencia)) {
+                                if (!Productos.contains(referencia)) {
                                     System.out.println("Eliminado exitosamente");
 
                                 } else {
