@@ -3,7 +3,7 @@ CREATE DATABASE IF NOT EXISTS inventario;
 USE inventario;
 
 CREATE TABLE productos (
-Id 				INT 			NOT NULL,
+Id 				INT				NOT NULL,
 Referencia 		varchar(50)   	NOT NULL,
 Nombre 			varchar(50)		NOT NULL,
 Descripcion 	varchar(100)	NOT NULL,
@@ -16,7 +16,7 @@ AplicarDto 		boolean			NOT NULL
 );
 
 CREATE TABLE tipo (
-Id			INT,		
+Id			INT ,		
 nombre		varchar(50)	
 );
 
@@ -27,7 +27,7 @@ ALTER TABLE productos ADD TipoId INT;
 ALTER TABLE productos ADD CONSTRAINT fk_tipo FOREIGN KEY (TipoId) REFERENCES tipo(Id);
 
 INSERT INTO tipo (Id, nombre) VALUES
-(1, 'Electrónica'),
+(1, 'Electronica'),
 (2, 'Ropa'),
 (3, 'Alimentación');
 
@@ -37,19 +37,3 @@ VALUES
 (1, 'REF001', 'Laptop', 'Portátil 16GB RAM', 'Electrónica', 10, 900.50, 10, 21, true, 1),
 (2, 'REF002', 'Camiseta', 'Camiseta algodón', 'Ropa', 50, 15.99, 5, 21, true, 2),
 (3, 'REF003', 'Pan', 'Pan integral', 'Alimentación', 100, 1.20, 0, 4, false, 3);
-
-UPDATE productos 
-SET Precio = 850.00 
-WHERE Id = 1;
-
-UPDATE productos 
-SET Cantidad = Cantidad + 20 
-WHERE Id = 2;
-
-UPDATE productos 
-SET Descuento = 15 
-WHERE TipoId = 1;
-
-UPDATE productos 
-SET TipoId = 2 
-WHERE Id = 1;

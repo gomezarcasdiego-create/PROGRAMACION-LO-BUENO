@@ -1,9 +1,4 @@
 package org.example;
-
-import com.mysql.cj.protocol.a.SqlDateValueEncoder;
-
-import java.sql.SQLOutput;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -32,9 +27,6 @@ public class Main {
 
                             System.out.println("Ingresa el nombre del tipo");
                             String nombreTipoBuscar = sc.nextLine();
-
-
-
                         case "4":
                             if (SQLDataAccessInventario.getProductos().isEmpty()){
                                 System.out.println("No encontrado");
@@ -51,8 +43,6 @@ public class Main {
                             }
                             break;
                         case "5":
-
-
                             if(SQLDataAccessInventario.getTipos().isEmpty()){
                                 System.out.println("No hay tipos");
 
@@ -110,60 +100,58 @@ public class Main {
                                         t5 = t.getNombre();
                                         break;
                                     }
+                                    Tipo t4 = new Tipo(t5);
+
+                                    SQLDataAccessInventario.addProducto(new Producto(refN, nombreN, descN, t4, cantN, precioN, (int) descuentoN, iva, aplicarDto));
+                                    System.out.println("Tipo : " + t5 + "\n");
                                 }
 
-                                Tipo t4 = new Tipo(t5);
 
-                                SQLDataAccessInventario.addProducto(new Producto(refN, nombreN, descN, t4, cantN, precioN, (int) descuentoN, iva, aplicarDto));
-                                System.out.println("Tipo : " + t5 + "\n");
                             }
 
                             break;
                         case "6":
+                            if (SQLDataAccessInventario.getProductos().isEmpty()) {
+                                System.out.println("No hay productos que revisar por cantidad");
 
+                            } else {
+                                obtenerProductos();
+
+                                List<String> Productos = SQLDataAccessInventario.getReferenciasProducto();
+
+                                System.out.println("Referencia producto a Eliminar: ");
+                                String p = sc.nextLine();
+
+
+                                if (!Productos.contains(p)) {
+                                    System.out.println("Eliminado exitosamente");
+                                    if(SQLDataAccessInventario.getProductos().contains(Productos)){
+                                        System.out.println("No se Elimino");
+                                    }
+                                }
+
+                                SQLDataAccessInventario.removeProductoReferencia(p);
+                            }
                             break;
                         case "7":
-//                            if (SQLDataAccessInventario.getProductos().isEmpty()) {
-//                                System.out.println("No hay productos a loos cuales revisar por cantidad");
-//
-//                            } else {
-//                                obtenerProductosPorTipo();
-//
-//                                System.out.println("Referencia producto a buscar: ");
-//                                Id = sc.nextInt();
-//
-//                                SQLDataAccessInventario.removeProductoReferencia(Id);
-//
-//                                List<String> Productos = SQLDataAccessInventario.getReferenciasProducto();
-//
-//                                if (!Productos.contains()) {
-//                                    System.out.println("Eliminado exitosamente");
-//
-//                                } else {
-//                                    System.out.println("Hubo un problema");
-//
-//                                }
-//                            }
-//                            break;
-                        case "8":
                             if (SQLDataAccessInventario.getProductos().isEmpty()) {
                                 System.out.println("No hay productos");
 
                             } else {
 
-                                System.out.println("Producto a editar (por referencia): ");
+                                System.out.println("Actualizar producto(dame la REF): ");
                                 String referenciaB = sc.nextLine();
 
-                                System.out.println("Descripción nueva Producto: ");
+                                System.out.println("nueva Descripción de el Producto: ");
                                 String descripcionN = sc.nextLine();
 
-                                System.out.println("Cantidad nueva Producto: ");
+                                System.out.println("nueva Cantidad de el Producto: ");
                                 int cantidadN = sc.nextInt();
 
-                                System.out.println("Precio nuevo Producto: ");
+                                System.out.println("nuevoPrecio de el Producto: ");
                                 double precio = sc.nextDouble();
 
-                                System.out.println("Descuento nuevo Producto: ");
+                                System.out.println("nuevoDescuento de el Producto: ");
                                 double descuento = sc.nextDouble();
 
                                 System.out.println("Aplicar descuento a precio (s/n): ");
@@ -181,6 +169,32 @@ public class Main {
                                 SQLDataAccessInventario.updateProducto(referenciaB, descripcionN, cantidadN, precio, (int) descuento, aplicarDto1);
 
                             }
+
+                            break;
+                        case "8":
+
+                            if(SQLDataAccessInventario.getProductos().isEmpty()) {
+
+                                System.out.println("Insertar nuevo tipo de producto: ");
+                                String referenciaB = sc.nextLine();
+
+                                System.out.println("Descripción nueva Producto: ");
+                                String descripcionN = sc.nextLine();
+
+                                System.out.println("Cantidad nueva Producto: ");
+                                int cantidadN = sc.nextInt();
+
+                                System.out.println("Precio nuevo Producto: ");
+                                double precio = sc.nextDouble();
+
+                                System.out.println("Descuento nuevo Producto: ");
+                                double descuento = sc.nextDouble();
+
+                                System.out.println("Aplicar descuento a precio (s/n): ");
+                                String opcionSub1 = sc.nextLine();
+
+                            }
+
                             break;
                         case "9":
                             System.out.println("Saliendo");
@@ -221,13 +235,6 @@ public class Main {
                 "9. Salir");
     }
 
-    private static void obtenerProductoCantidad(Scanner sc) {
-        System.out.println("Inserte la cantidad");
-        int cantidadBuscar = sc.nextInt();
-        SQLDataAccessInventario.getProductoCantidad(cantidadBuscar);
-    }
-
-
     private static void obtenerProductos(){
         List<Producto> productos = SQLDataAccessInventario.getProductos();
         for(Producto producto : productos){
@@ -255,28 +262,4 @@ public class Main {
             }
         }
     }
-
-//    private static void obtenerNombreCantidadProductos(){
-//        List<Producto> productos = SQLDataAccessInventario.getProductoCantidad(1);
-//
-//        if(productos.isEmpty()){
-//            System.out.println("No encontrado");
-//        }else{
-//            for(Producto p : productos){
-//                System.out.println(p);
-//            }
-//        }
-//    }
-
-//                            if(SQLDataAccessInventario.getProductos().isEmpty()){
-//                                System.out.println("No encontrado");
-//                            }else{
-//                                obtenerNombreCantidadProductos();
-//
-//                                System.out.println("elije cantidad");
-//                                Scanner cantidad = sc;
-//
-//                                obtenerProductoCantidad(cantidad);
-//                            }
-
 }
