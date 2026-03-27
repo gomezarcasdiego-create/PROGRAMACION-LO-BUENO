@@ -7,20 +7,21 @@ import java.util.List;
 public class SQLDataAccessInventario {
 
     public static void addProducto(Producto p) {
-        String sql = "INSERT INTO productos (Referencia, Nombre, Descripcion, Tipo, Cantidad, Precio, Descuento, Iva, AplicarDto) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO productos (Id, Referencia, Nombre, Descripcion, Tipo, Cantidad, Precio, Descuento, Iva, AplicarDto) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         try (Connection con = SQLDataBaseInventario.getConnection();
              PreparedStatement statement = con.prepareStatement(sql)) {
 
-            statement.setNString(1, p.getReferencia());
-            statement.setNString(2, p.getNombre());
-            statement.setNString(3, p.getDescripcion());
-            statement.setNString(4, p.getTipo().getNombre());
-            statement.setInt(5, p.getCantidad());
-            statement.setDouble(6, p.getPrecio());
-            statement.setInt(7, p.getDescuento());
-            statement.setInt(8, p.getIva());
-            statement.setBoolean(9, p.isAplicarDto());
+            statement.setInt(1, p.getId());
+            statement.setNString(2, p.getReferencia());
+            statement.setNString(3, p.getNombre());
+            statement.setNString(4, p.getDescripcion());
+            statement.setNString(5, p.getTipo().getNombre());
+            statement.setInt(6, p.getCantidad());
+            statement.setDouble(7, p.getPrecio());
+            statement.setInt(8, p.getDescuento());
+            statement.setInt(9, p.getIva());
+            statement.setBoolean(10, p.isAplicarDto());
 
             statement.executeUpdate();
 

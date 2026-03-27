@@ -27,6 +27,8 @@ public class Main {
 
                             System.out.println("Ingresa el nombre del tipo");
                             String nombreTipoBuscar = sc.nextLine();
+                            break;
+
                         case "4":
                             if (SQLDataAccessInventario.getProductos().isEmpty()){
                                 System.out.println("No encontrado");
@@ -62,6 +64,7 @@ public class Main {
                                 System.out.println("Descripcion producto: ");
                                 String descN = sc.nextLine();
 
+                                Scanner Sc = new Scanner(System.in);
                                 obtenerTipos();
                                 System.out.println("Tipo: ");
                                 int idTipo = sc.nextInt();
@@ -71,6 +74,9 @@ public class Main {
 
                                 System.out.println("Precio producto: ");
                                 double precioN = sc.nextDouble();
+                                if (precioN < 0) {
+                                    System.out.println("Precio inválido");
+                                }
 
                                 System.out.println("Descuento nuevo Producto: ");
                                 double descuentoN = sc.nextDouble();
@@ -95,18 +101,22 @@ public class Main {
 
                                 String t5 = "";
 
+                                Tipo tipoSeleccionado = null;
+
                                 for (Tipo t : SQLDataAccessInventario.getTipos()) {
                                     if (t.getId() == idTipo) {
-                                        t5 = t.getNombre();
+                                        tipoSeleccionado = t;
                                         break;
                                     }
-                                    Tipo t4 = new Tipo(t5);
-
-                                    SQLDataAccessInventario.addProducto(new Producto(refN, nombreN, descN, t4, cantN, precioN, (int) descuentoN, iva, aplicarDto));
-                                    System.out.println("Tipo : " + t5 + "\n");
                                 }
 
-
+                                if (tipoSeleccionado != null) {
+                                    SQLDataAccessInventario.addProducto(
+                                            new Producto(refN, nombreN, descN, tipoSeleccionado, cantN, precioN, (int) descuentoN, iva, aplicarDto)
+                                    );
+                                } else {
+                                    System.out.println("Tipo no válido");
+                                }
                             }
 
                             break;
@@ -123,11 +133,11 @@ public class Main {
                                 String p = sc.nextLine();
 
 
-                                if (!Productos.contains(p)) {
+                                if (Productos.contains(p)) {
+                                    SQLDataAccessInventario.removeProductoReferencia(p);
                                     System.out.println("Eliminado exitosamente");
-                                    if(SQLDataAccessInventario.getProductos().contains(Productos)){
-                                        System.out.println("No se Elimino");
-                                    }
+                                } else {
+                                    System.out.println("No existe el producto");
                                 }
 
                                 SQLDataAccessInventario.removeProductoReferencia(p);
@@ -150,6 +160,9 @@ public class Main {
 
                                 System.out.println("nuevoPrecio de el Producto: ");
                                 double precio = sc.nextDouble();
+                                if (precio < 0) {
+                                    System.out.println("Precio inválido");
+                                }
 
                                 System.out.println("nuevoDescuento de el Producto: ");
                                 double descuento = sc.nextDouble();
@@ -172,29 +185,10 @@ public class Main {
 
                             break;
                         case "8":
-
-                            if(SQLDataAccessInventario.getProductos().isEmpty()) {
-
-                                System.out.println("Insertar nuevo tipo de producto: ");
-                                String referenciaB = sc.nextLine();
-
-                                System.out.println("Descripción nueva Producto: ");
-                                String descripcionN = sc.nextLine();
-
-                                System.out.println("Cantidad nueva Producto: ");
-                                int cantidadN = sc.nextInt();
-
-                                System.out.println("Precio nuevo Producto: ");
-                                double precio = sc.nextDouble();
-
-                                System.out.println("Descuento nuevo Producto: ");
-                                double descuento = sc.nextDouble();
-
-                                System.out.println("Aplicar descuento a precio (s/n): ");
-                                String opcionSub1 = sc.nextLine();
-
-                            }
-
+                            System.out.println("Ingresa el nombre del nuevo tipo: ");
+                            String nuevoNombreTipo = sc.nextLine();
+                            SQLDataAccessInventario.addTipo(new Tipo(nuevoNombreTipo));
+                            System.out.println("Tipo agregado exitosamente.");
                             break;
                         case "9":
                             System.out.println("Saliendo");
