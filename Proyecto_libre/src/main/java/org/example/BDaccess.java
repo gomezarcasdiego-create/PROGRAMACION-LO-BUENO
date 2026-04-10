@@ -99,14 +99,14 @@ public class BDaccess {
 
             rs.next();
 
-                e = new Equipo(
-                        rs.getInt("Id_ciudad"),
-                        rs.getInt("Id"),
-                        rs.getString("Nombre"),
-                        LocalDate.parse(rs.getDate("fecha_fundacion").toString()),
-                        rs.getString("nombre_campo")
+            e = new Equipo(
+                    rs.getInt("Id_ciudad"),
+                    rs.getInt("Id"),
+                    rs.getString("Nombre"),
+                    LocalDate.parse(rs.getDate("fecha_fundacion").toString()),
+                    rs.getString("nombre_campo")
 
-                );
+            );
 
 
             return e;
@@ -115,7 +115,6 @@ public class BDaccess {
             throw new RuntimeException(ex);
         }
     }
-
 
 
     public static ArrayList<Jugador> obtenerJugadores(String equipo) {
@@ -173,17 +172,19 @@ public class BDaccess {
         }
     }
 
-    public static ArrayList<Equipo> obtenerEquipoJugador(String equipo) {
+    public static Equipo obtenerEquipoJugador(String equipo) {
         ArrayList<Equipo> equipos = new ArrayList();
-        String sql = "SELECT * FROM equipo";
+        String sql = "SELECT * FROM equipo WHERE nombre like ?";
 
         try (Connection con = BD.conexion()) {
-            Statement statement = con.createStatement();
-            ResultSet rs = statement.executeQuery(sql);
+            PreparedStatement statement = con.prepareStatement(sql);
+            statement.setString(1, equipo);
+            ResultSet rs = statement.executeQuery();
 
+            Equipo e = null;
             while (rs.next()) {
 
-                Equipo e = new Equipo(
+                e = new Equipo(
                         rs.getInt("Id_ciudad"),
                         rs.getInt("Id"),
                         rs.getString("Nombre"),
@@ -191,13 +192,13 @@ public class BDaccess {
                         rs.getString("nombre_campo")
 
                 );
-                equipos.add(e);
+
             }
 
 
             BD.desconectar(con);
 
-            return equipos;
+            return e;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -208,7 +209,7 @@ public class BDaccess {
         return false;
     }
 
-    public static boolean eliminarEquipo(int id_equipo, int  id_jugador) throws SQLException {
+    public static boolean eliminarEquipo(int id_equipo, int id_jugador) throws SQLException {
         String sql = "update equipo_jugador set fecha_fin = curdate() WHERE id_equipo = ? and id_jugador = ?";
         Connection con = null;
         PreparedStatement statement = con.prepareStatement(sql);
@@ -230,14 +231,14 @@ public class BDaccess {
         Connection con = BD.conexion();
         PreparedStatement statement = con.prepareStatement(sql);
 
-        try{
+        try {
             statement.setInt(1, id_jugador);
             statement.setInt(1, equipo);
             statement.executeQuery();
             con.close();
             return true;
-        }catch(SQLException e){
-           return false;
+        } catch (SQLException e) {
+            return false;
         }
     }
 
@@ -246,31 +247,33 @@ public class BDaccess {
         Connection con = BD.conexion();
         PreparedStatement statement = con.prepareStatement(sql);
 
-        try{
+        try {
             statement.setInt(1, equipo);
             return statement.executeQuery().getInt(1);
-        }catch(SQLException e){
+        } catch (SQLException e) {
             throw new RuntimeException(e);
         }
 
     }
 
     public static boolean insertarJugador(int equipo, int id_jugador) throws SQLException {
-        String sql = "INSERT INTO EquipoJugador (id_equipo, id_jugador, fecha_inicio, fecha_fin, dorsal) VALUES (?, ?, ?, ?, ?)";
+        String sql = "insert into EquipoJugador (id_equipo, id_jugador, fecha_inicio, fecha_fin, dorsal) values (?, ?, ?, ?, ?)";
 
-        try (Connection con = BD.conexion();
-             PreparedStatement statement = con.prepareStatement(sql)) {
-
+        Connection con = BD.conexion();
+        PreparedStatement statement = con.prepareStatement(sql);
+        try {
             statement.setInt(1, equipo);
             statement.setInt(2, id_jugador);
             statement.setDate(3, Date.valueOf(LocalDate.now()));
             statement.setDate(4, null);
             statement.setInt(5, ultimoDorsal(equipo) + 1);
 
-            statement.executeUpdate();
+            statement.executeQuery();
+            con.close();
             return true;
+
         } catch (SQLException e) {
-            return false;
+            throw new RuntimeException(e);
         }
     }
 
@@ -281,13 +284,11 @@ public class BDaccess {
         Jugador jugador = obtenerJugador(id_jugador);
 
 
-
-
         String sql = "DELETE FROM EquipoJugador WHERE id_equipo = ? and id_jugador = ?";
         Connection con = BD.conexion();
 
 
-        try{
+        try {
             con.setAutoCommit(false);
 
             PreparedStatement statement = con.prepareStatement(sql);
@@ -296,20 +297,20 @@ public class BDaccess {
             statement.executeQuery();
 
 
-             sql = "insert into EquipoJugador (id_equipo, id_jugador, fecha_inicio, fecha_fin, dorsal) values (?, ?, ?, ?, ?)";
+            sql = "insert into EquipoJugador (id_equipo, id_jugador, fecha_inicio, fecha_fin, dorsal) values (?, ?, ?, ?, ?)";
 
             statement = con.prepareStatement(sql);
-                statement.setInt(1, nuevo.getId());
-                statement.setInt(2, id_jugador);
-                statement.setDate(3, Date.valueOf(LocalDate.now()));
-                statement.setDate(4, null);
-                statement.setInt(5, ultimoDorsal(nuevo.getId())+1);
+            statement.setInt(1, nuevo.getId());
+            statement.setInt(2, id_jugador);
+            statement.setDate(3, Date.valueOf(LocalDate.now()));
+            statement.setDate(4, null);
+            statement.setInt(5,ultimoDorsal(nuevo.getId()) + 1);
 
-                statement.executeQuery();
-                con.commit();
-                con.close();
-                return true;
-        }catch(SQLException e) {
+            statement.executeQuery();
+            con.commit();
+            con.close();
+            return true;
+        } catch (SQLException e) {
             try {
                 con.rollback();
             } catch (SQLException ex) {
@@ -318,6 +319,76 @@ public class BDaccess {
 
 
         }
+
+
         return false;
+    }
+
+    public static Jugador obtenerJugador(String nombre, String apellido) {
+
+        String sql = "SELECT * FROM jugador WHERE nombre like ? AND apellido like ?";
+
+        try (Connection con = BD.conexion()) {
+            PreparedStatement statement = con.prepareStatement(sql);
+            statement.setString(1, nombre);
+            statement.setString(2, apellido);
+            ResultSet rs = statement.executeQuery();
+
+
+            Jugador j = null;
+            while (rs.next()) {
+
+                j = new Jugador(
+                        rs.getInt("id"),
+                        rs.getString("nombre"),
+                        rs.getString("Apellido"),
+                        rs.getString("Posicion"),
+                        rs.getString("Pierna_habil")
+
+                );
+
+            }
+
+
+            BD.desconectar(con);
+
+            return j;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static Equipo obtenerEquipoPorNombre(String nombre) {
+
+        String sql = "SELECT * FROM equipo WHERE nombre like ?";
+
+        try (Connection con = BD.conexion()) {
+            PreparedStatement statement = con.prepareStatement(sql);
+            statement.setString(1, nombre);
+            ResultSet rs = statement.executeQuery();
+
+
+            Equipo e = null;
+            while (rs.next()) {
+
+                e = new Equipo(
+                        rs.getInt("Id_ciudad"),
+                        rs.getInt("Id"),
+                        rs.getString("Nombre"),
+                        LocalDate.parse(rs.getDate("fecha_fundacion").toString()),
+                        rs.getString("nombre_campo")
+
+                );
+
+            }
+
+
+            BD.desconectar(con);
+
+            return e;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 }

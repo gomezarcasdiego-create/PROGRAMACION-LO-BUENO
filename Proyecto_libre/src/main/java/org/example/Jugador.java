@@ -55,4 +55,15 @@ public class Jugador {
     public void setPiernaHabil(String piernaHabil) {
         this.piernaHabil = piernaHabil;
     }
+
+    @Override
+    public String toString() {
+        return "Jugador{" +
+                "id=" + id +
+                ", nombre='" + nombre + '\'' +
+                ", apellido='" + apellido + '\'' +
+                ", posicion='" + posicion + '\'' +
+                ", piernaHabil='" + piernaHabil + '\'' +
+                '}';
+    }
 }

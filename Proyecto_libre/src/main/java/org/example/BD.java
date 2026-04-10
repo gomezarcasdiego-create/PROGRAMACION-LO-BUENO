@@ -14,7 +14,7 @@ public class BD {
              final String URL =  "jdbc:mysql://localhost:3306/";
              final String SCHEMA = "futbol";
              final String USUARIO = "root";
-             final String CLAVE = "Hector2013";
+             final String CLAVE = "daw12";
 
             try {
                 Class.forName(DRIVER);
