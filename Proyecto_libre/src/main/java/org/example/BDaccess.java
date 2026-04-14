@@ -304,7 +304,7 @@ public class BDaccess {
             statement.setInt(2, id_jugador);
             statement.setDate(3, Date.valueOf(LocalDate.now()));
             statement.setDate(4, null);
-            statement.setInt(5,ultimoDorsal(nuevo.getId()) + 1);
+            statement.setInt(5, ultimoDorsal(nuevo.getId()) + 1);
 
             statement.executeQuery();
             con.commit();
