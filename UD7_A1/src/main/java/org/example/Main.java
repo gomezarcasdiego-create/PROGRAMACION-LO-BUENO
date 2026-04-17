@@ -1,61 +1,88 @@
 package org.example;
+
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * Clase principal del programa.
+ *
+ * Contiene el menú interactivo para gestionar el inventario:
+ * productos y tipos almacenados en base de datos.
+ */
 public class Main {
+
+    /**
+     * Método principal que inicia la aplicación.
+     *
+     * @param args argumentos de entrada
+     */
     public static void main(String[] args) {
-        if(SQLDataBaseInventario.getConnection() != null){
+
+        // Comprobación de conexión a la base de datos
+        if (SQLDataBaseInventario.getConnection() != null) {
             System.out.println("Conectado exitosamente");
 
-            try(Scanner sc = new Scanner(System.in)){
+            try (Scanner sc = new Scanner(System.in)) {
+
                 String opcion = "9";
-                do{
+
+                // Bucle principal del menú
+                do {
                     menu();
                     opcion = sc.nextLine();
 
-                    switch(opcion){
+                    switch (opcion) {
+
                         case "1":
+                            // Mostrar todos los productos
                             obtenerProductos();
                             break;
+
                         case "2":
-
+                            // Buscar producto por referencia
                             buscarREF(sc);
-
                             break;
-                        case "3":
-                            obtenerProductosPorTipo();
 
+                        case "3":
+                            // Mostrar tipos y pedir uno
+                            obtenerProductosPorTipo();
                             System.out.println("Ingresa el nombre del tipo");
                             String nombreTipoBuscar = sc.nextLine();
                             break;
 
                         case "4":
-                            if (SQLDataAccessInventario.getProductos().isEmpty()){
+                            // Buscar producto por cantidad
+                            if (SQLDataAccessInventario.getProductos().isEmpty()) {
                                 System.out.println("No encontrado");
-                            }else{
+                            } else {
                                 obtenerProductos();
 
                                 System.out.println("Ingresa la cantidad del producto");
-                                int cantadidad = sc.nextInt();
+                                int cantidad = sc.nextInt();
 
+                                List<Producto> pdCant =
+                                        SQLDataAccessInventario.getProductoCantidad(cantidad);
 
-                                List <Producto> pdCant = SQLDataAccessInventario.getProductoCantidad(cantadidad);
                                 System.out.println(pdCant);
-
                             }
                             break;
+
                         case "5":
-                            if(SQLDataAccessInventario.getTipos().isEmpty()){
+                            // Insertar producto
+                            if (SQLDataAccessInventario.getTipos().isEmpty()) {
                                 System.out.println("No hay tipos");
 
-                            }else {
-                                List<String> referencias = SQLDataAccessInventario.getReferenciasProducto();
+                            } else {
+
+                                List<String> referencias =
+                                        SQLDataAccessInventario.getReferenciasProducto();
 
                                 String refN;
+
+                                // Validar referencia única
                                 do {
                                     System.out.println("Referencia: ");
                                     refN = sc.nextLine();
-
                                 } while (referencias.contains(refN));
 
                                 System.out.println("Nombre producto: ");
@@ -64,9 +91,9 @@ public class Main {
                                 System.out.println("Descripcion producto: ");
                                 String descN = sc.nextLine();
 
-                                Scanner Sc = new Scanner(System.in);
                                 obtenerTipos();
-                                System.out.println("Tipo: ");
+
+                                System.out.println("Tipo (ID): ");
                                 int idTipo = sc.nextInt();
 
                                 System.out.println("Cantidad producto: ");
@@ -74,33 +101,22 @@ public class Main {
 
                                 System.out.println("Precio producto: ");
                                 double precioN = sc.nextDouble();
-                                if (precioN < 0) {
-                                    System.out.println("Precio inválido");
-                                }
 
-                                System.out.println("Descuento nuevo Producto: ");
+                                System.out.println("Descuento: ");
                                 double descuentoN = sc.nextDouble();
 
                                 System.out.println("IVA: ");
                                 int iva = sc.nextInt();
 
-                                sc.nextLine();
+                                sc.nextLine(); // limpiar buffer
 
-                                System.out.println("Aplicar descuento a precio (s/n): ");
+                                System.out.println("Aplicar descuento (s/n): ");
                                 String opcionSub = sc.nextLine();
 
-                                boolean aplicarDto = false;
+                                boolean aplicarDto =
+                                        opcionSub.equalsIgnoreCase("S") || opcionSub.isBlank();
 
-                                if (opcionSub.equalsIgnoreCase("S") || opcionSub.isBlank()) {
-                                    aplicarDto = true;
-
-                                } else if (opcionSub.equalsIgnoreCase("N")) {
-                                    aplicarDto = false;
-                                }
-
-
-                                String t5 = "";
-
+                                // Buscar tipo seleccionado
                                 Tipo tipoSeleccionado = null;
 
                                 for (Tipo t : SQLDataAccessInventario.getTipos()) {
@@ -112,146 +128,170 @@ public class Main {
 
                                 if (tipoSeleccionado != null) {
                                     SQLDataAccessInventario.addProducto(
-                                            new Producto(refN, nombreN, descN, tipoSeleccionado, cantN, precioN, (int) descuentoN, iva, aplicarDto)
+                                            new Producto(refN, nombreN, descN,
+                                                    tipoSeleccionado, cantN,
+                                                    precioN, (int) descuentoN,
+                                                    iva, aplicarDto)
                                     );
                                 } else {
                                     System.out.println("Tipo no válido");
                                 }
                             }
-
                             break;
+
                         case "6":
-                            if (SQLDataAccessInventario.getProductos().isEmpty()) {
-                                System.out.println("No hay productos que revisar por cantidad");
-
-                            } else {
-                                obtenerProductos();
-
-                                List<String> Productos = SQLDataAccessInventario.getReferenciasProducto();
-
-                                System.out.println("Referencia producto a Eliminar: ");
-                                String p = sc.nextLine();
-
-
-                                if (Productos.contains(p)) {
-                                    SQLDataAccessInventario.removeProductoReferencia(p);
-                                    System.out.println("Eliminado exitosamente");
-                                } else {
-                                    System.out.println("No existe el producto");
-                                }
-
-                                SQLDataAccessInventario.removeProductoReferencia(p);
-                            }
-                            break;
-                        case "7":
+                            // Eliminar producto
                             if (SQLDataAccessInventario.getProductos().isEmpty()) {
                                 System.out.println("No hay productos");
 
                             } else {
 
-                                System.out.println("Actualizar producto(dame la REF): ");
+                                obtenerProductos();
+
+                                List<String> productos =
+                                        SQLDataAccessInventario.getReferenciasProducto();
+
+                                System.out.println("Referencia a eliminar:");
+                                String p = sc.nextLine();
+
+                                if (productos.contains(p)) {
+                                    SQLDataAccessInventario.removeProductoReferencia(p);
+                                    System.out.println("Eliminado correctamente");
+                                } else {
+                                    System.out.println("No existe");
+                                }
+                            }
+                            break;
+
+                        case "7":
+                            // Actualizar producto
+                            if (SQLDataAccessInventario.getProductos().isEmpty()) {
+                                System.out.println("No hay productos");
+
+                            } else {
+
+                                System.out.println("Referencia:");
                                 String referenciaB = sc.nextLine();
 
-                                System.out.println("nueva Descripción de el Producto: ");
+                                System.out.println("Nueva descripción:");
                                 String descripcionN = sc.nextLine();
 
-                                System.out.println("nueva Cantidad de el Producto: ");
+                                System.out.println("Nueva cantidad:");
                                 int cantidadN = sc.nextInt();
 
-                                System.out.println("nuevoPrecio de el Producto: ");
+                                System.out.println("Nuevo precio:");
                                 double precio = sc.nextDouble();
-                                if (precio < 0) {
-                                    System.out.println("Precio inválido");
-                                }
 
-                                System.out.println("nuevoDescuento de el Producto: ");
+                                System.out.println("Nuevo descuento:");
                                 double descuento = sc.nextDouble();
 
-                                System.out.println("Aplicar descuento a precio (s/n): ");
+                                sc.nextLine();
+
+                                System.out.println("Aplicar descuento (s/n):");
                                 String opcionSub1 = sc.nextLine();
 
-                                boolean aplicarDto1 = false;
+                                boolean aplicarDto1 =
+                                        opcionSub1.equalsIgnoreCase("S") || opcionSub1.isBlank();
 
-                                if (opcionSub1.equalsIgnoreCase("S") || opcionSub1.isBlank()) {
-                                    aplicarDto1 = true;
-
-                                } else if (opcionSub1.equalsIgnoreCase("N")) {
-                                    aplicarDto1 = false;
-                                }
-
-                                SQLDataAccessInventario.updateProducto(referenciaB, descripcionN, cantidadN, precio, (int) descuento, aplicarDto1);
-
+                                SQLDataAccessInventario.updateProducto(
+                                        referenciaB, descripcionN,
+                                        cantidadN, precio,
+                                        (int) descuento, aplicarDto1
+                                );
                             }
+                            break;
 
-                            break;
                         case "8":
-                            System.out.println("Ingresa el nombre del nuevo tipo: ");
+                            // Insertar tipo
+                            System.out.println("Nombre del tipo:");
                             String nuevoNombreTipo = sc.nextLine();
-                            SQLDataAccessInventario.addTipo(new Tipo(nuevoNombreTipo));
-                            System.out.println("Tipo agregado exitosamente.");
+
+                            SQLDataAccessInventario.addTipo(
+                                    new Tipo(nuevoNombreTipo)
+                            );
+
+                            System.out.println("Tipo agregado");
                             break;
+
                         case "9":
                             System.out.println("Saliendo");
                             break;
+                    }
 
-                        default:
-                    }
-                }while(!opcion.equals("9"));
-                    }
-        }else{
+                } while (!opcion.equals("9"));
+            }
+
+        } else {
             System.out.println("Conexion fallida");
         }
     }
 
+    /**
+     * Busca un producto por referencia.
+     */
     private static void buscarREF(Scanner sc) {
         List<Producto> productos = SQLDataAccessInventario.getProductos();
-        for(Producto producto : productos){
+
+        for (Producto producto : productos) {
             System.out.println(producto);
         }
 
-        System.out.println("Por favor ingrese la referenica del producto");
+        System.out.println("Referencia:");
         String refBuscar = sc.nextLine();
-
 
         Producto pd = SQLDataAccessInventario.getProductoReferencia(refBuscar);
         System.out.println(pd);
     }
 
+    /**
+     * Muestra el menú principal.
+     */
     private static void menu() {
-        System.out.println("1. Mostrar todos los Productos en el Inventario.\n" +
-                "2. Buscar producto por referencia.\n" +
-                "3. Buscar productos por tipo.\n" +
-                "4. Buscar producto por cantidad.\n" +
-                "5. Insertar un nuevo producto (no permitir referencias repetidas).\n" +
-                "6. Eliminar Producto por referencia.\n" +
-                "7. Actualizar producto (descripción, cantidad, precio, descuento, AplicarDto).\n" +
-                "8. Insertar un nuevo tipo de producto.\n" +
-                "9. Salir");
+        System.out.println("""
+                1. Mostrar productos
+                2. Buscar por referencia
+                3. Buscar por tipo
+                4. Buscar por cantidad
+                5. Insertar producto
+                6. Eliminar producto
+                7. Actualizar producto
+                8. Insertar tipo
+                9. Salir
+                """);
     }
 
-    private static void obtenerProductos(){
+    /**
+     * Muestra todos los productos.
+     */
+    private static void obtenerProductos() {
         List<Producto> productos = SQLDataAccessInventario.getProductos();
-        for(Producto producto : productos){
+
+        for (Producto producto : productos) {
             System.out.println(producto);
         }
     }
 
-
-    private static void obtenerProductosPorTipo(){
+    /**
+     * Muestra todos los tipos.
+     */
+    private static void obtenerProductosPorTipo() {
         List<Tipo> tipos = SQLDataAccessInventario.getTipos();
-        for(Tipo tipo : tipos){
+
+        for (Tipo tipo : tipos) {
             System.out.println(tipo);
         }
     }
 
-    private static void obtenerTipos(){
+    /**
+     * Muestra los tipos disponibles.
+     */
+    private static void obtenerTipos() {
         List<Tipo> tipos = SQLDataAccessInventario.getTipos();
 
-        if(tipos.isEmpty()){
+        if (tipos.isEmpty()) {
             System.out.println("No encontrado");
-        }else{
-            System.out.println("Tipos encontrados");
-            for(Tipo tipo : tipos){
+        } else {
+            for (Tipo tipo : tipos) {
                 System.out.println(tipo);
             }
         }

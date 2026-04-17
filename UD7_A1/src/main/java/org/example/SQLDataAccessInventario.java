@@ -4,14 +4,26 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Clase de acceso a datos (dao) para gestionar productos y tipos en base de datos.
+ *
+ * Contiene metodos crud (create, read, update, delete)
+ * Sobre las tablas "productos" y "tipo"
+ */
 public class SQLDataAccessInventario {
 
+    /**
+     *Inserta un nuevo producto en la base de datos
+     *
+     * @param p Producto a insertar
+     */
     public static void addProducto(Producto p) {
         String sql = "INSERT INTO productos (Id, Referencia, Nombre, Descripcion, Tipo, Cantidad, Precio, Descuento, Iva, AplicarDto) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         try (Connection con = SQLDataBaseInventario.getConnection();
              PreparedStatement statement = con.prepareStatement(sql)) {
 
+            //Asignacion de parametros
             statement.setInt(1, p.getId());
             statement.setNString(2, p.getReferencia());
             statement.setNString(3, p.getNombre());
@@ -31,6 +43,12 @@ public class SQLDataAccessInventario {
         }
     }
 
+    /**
+     * Inserta un nuevo tipo en la base de datos
+     *
+     * @param t Tipo a insertar
+     */
+
     public static void addTipo(Tipo t) {
         String sql = "INSERT INTO tipo VALUES (?)";
 
@@ -47,6 +65,11 @@ public class SQLDataAccessInventario {
         }
     }
 
+    /**
+     * Obtiene todos los products de la base de datos.
+     *
+     * @return Lista de productos
+     */
     public static List<Producto> getProductos() {
         List<Producto> productos = new ArrayList<>();
         String sql = "SELECT * FROM productos";
@@ -57,8 +80,10 @@ public class SQLDataAccessInventario {
 
             while (rs.next()) {
 
+                // Crear tipo a partir del resultado
                 Tipo t = new Tipo(rs.getNString("TIPO"));
 
+                //Crear producto
                 Producto p = new Producto(
                         rs.getInt("Id"),
                         rs.getString("Referencia"),
@@ -81,6 +106,11 @@ public class SQLDataAccessInventario {
         return productos;
     }
 
+    /**
+     * Obtiene todos los tipos disponibles.
+     *
+     * @return Lista de tipos
+     */
     public static List<Tipo> getTipos() {
         List<Tipo> tipos = new ArrayList<>();
         String sql = "SELECT * FROM tipo";
@@ -106,6 +136,12 @@ public class SQLDataAccessInventario {
         return tipos;
     }
 
+    /**
+     * Obtiene un producto a partir de su refenrecia
+     *
+     * @param ref Referencia del producto
+     * @return Producto encontrado o null
+     */
     public static Producto getProductoReferencia(String ref) {
 
         String sql = "SELECT * FROM productos WHERE Referencia = ?";
@@ -145,6 +181,12 @@ public class SQLDataAccessInventario {
         return null;
     }
 
+    /**
+     * Obtiene productos filtrados por tipo
+     *
+     * @param tipo Nombre del tipo
+     * @return Lista de productos
+     */
     public static List<Producto> getProductosTipo(String tipo){
         List<Producto> productos = new ArrayList<>();
         String sql = "SELECT * FROM productos WHERE tipo = ?";
@@ -183,6 +225,7 @@ public class SQLDataAccessInventario {
 
         return productos;
     }
+
 
     public static List<Producto> getProductoCantidad(int cantidad){
         List<Producto> productos = new ArrayList<>();
@@ -223,7 +266,11 @@ public class SQLDataAccessInventario {
         return productos;
     }
 
-
+    /**
+     * Elimina un producto segun su referencia
+     *
+     * @param ref Referencia del producto
+     */
     public static void removeProductoReferencia(String ref){
         String sql = "DELETE FROM productos WHERE Referencia=?";
 
@@ -238,6 +285,16 @@ public class SQLDataAccessInventario {
         }
     }
 
+    /**
+     * Actualiza los datos de un producto.
+     *
+     * @param referencia
+     * @param des
+     * @param cant
+     * @param precio
+     * @param descuento
+     * @param aplicarDto
+     */
     public static void updateProducto(String referencia, String des, int cant, double precio, int descuento, boolean aplicarDto){
         String sql = "UPDATE FROM productos SET Descripcion = ?, Cantidad = ?, Precio= ?, Descuento= ?, AplicarDto= ? WHERE Referencia = ?";
 
@@ -257,6 +314,11 @@ public class SQLDataAccessInventario {
         }
     }
 
+    /**
+     * Obtiene todas los referencias de productos.
+     *
+     * @return Lista de referencias
+     */
     public static List<String> getReferenciasProducto(){
         List<String> referencias = new ArrayList<>();
 

@@ -7,14 +7,36 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+/**
+ * Clase encargada de gestionar la conexion a la base de datos
+ *
+ * Lee lo parametros de configuracion desde un archivo externo
+ * (application.dat) y proporcionan un metodo para obtener la conexion.
+ */
 public class SQLDataBaseInventario {
 
+    /** Driver JDBC utilizado para la conexion */
     private static String DRIVER;
+
+    /** URL base de la base de datos */
     static String URL;
+
+    /** Esquema de la base de datos */
     private static String SCHEMA;
+
+    /** Usuario de la base de datos */
     static String USUARIO;
+
+    /** Contraseña de la base de datos */
     static String CLAVE;
 
+    /**
+     * Bloque estático que se ejecuta al cargar la clase.
+     *
+     * Se encarga de leer el archivo de configuracion
+     * "application.dat" y cargar los parametros necesarios
+     * para la conexio a la base de datos.
+     */
     static {
         try(
                 BufferedReader reader = new BufferedReader(new FileReader("src/main/resources/application.dat"))){
@@ -47,10 +69,17 @@ public class SQLDataBaseInventario {
         }
     }
 
+    /**
+     * Obtiene una conexion a la base de datos.
+     *
+     * @return Connection objeto conexion, o null si ocurre un error
+     */
+
     public static Connection getConnection() {
         Connection connection = null;
 
         try {
+            //Cargar el driver JDBC
             Class.forName(DRIVER);
             connection = DriverManager.getConnection(URL + SCHEMA, USUARIO, CLAVE);
         } catch (ClassNotFoundException e) {
