@@ -32,7 +32,7 @@ public class SQLAccessPersona {
 
                 Persona p = Persona.builder()
                                 .dni(dni)
-                        
+
 
                 personas.add(p);
             }
