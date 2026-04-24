@@ -1,16 +1,167 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.VBox?>
-
 <?import javafx.scene.control.Button?>
-<VBox alignment="CENTER" spacing="20.0" xmlns:fx="http://javafx.com/fxml"
-      fx:controller="org.example.apppersonasfx.PersonasController">
-    <padding>
-        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
-    </padding>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-    <Label fx:id="welcomeText"/>
-    <Button text="Hello!" onAction="#onHelloButtonClick"/>
-</VBox>
+<AnchorPane fx:id="mainPanel" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.apppersonasfx.PersonasController">
+   <children>
+      <AnchorPane fx:id="mainView" maxHeight="640.0" maxWidth="640.0" minHeight="640.0" minWidth="640.0" prefHeight="640.0" prefWidth="640.0" styleClass="my-background" stylesheets="@../../../style.css">
+         <children>
+            <Label alignment="CENTER" layoutX="120.0" layoutY="72.0" prefHeight="71.0" prefWidth="390.0" text="App Gestión Personas" textAlignment="CENTER" AnchorPane.leftAnchor="125.0" AnchorPane.rightAnchor="125.0" AnchorPane.topAnchor="80.0">
+               <font>
+                  <Font size="40.0" />
+               </font>
+            </Label>
+            <ImageView fitHeight="300.0" fitWidth="300.0" layoutX="185.0" layoutY="185.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="170.0" AnchorPane.rightAnchor="170.0" AnchorPane.topAnchor="190.0">
+               <image>
+                  <Image url="@../../../Image/Gestio de personas.png" />
+               </image>
+            </ImageView>
+            <VBox layoutX="155.0" layoutY="421.0" prefHeight="150.0" prefWidth="330.0" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="134.0" AnchorPane.rightAnchor="134.0">
+               <children>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="60.0">
+                     <children>
+                        <Button fx:id="insertButton" mnemonicParsing="false" onAction="#onInsertButtonClick" text="Insertar" />
+                        <Button fx:id="listadoButton" mnemonicParsing="false" onAction="#onListadoButtonClick" text="Listado" />
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="100.0" prefWidth="200.0" spacing="60.0">
+                     <children>
+                        <Button fx:id="buscarButton" mnemonicParsing="false" onAction="#onBuscarButtonClick" text="Buscar" />
+                        <Button fx:id="btn_salir" mnemonicParsing="false" onAction="#onSalirButtonOnAction" text="Salir" />
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="formView" maxHeight="640.0" maxWidth="640.0" minHeight="640.0" minWidth="640.0" prefHeight="640.0" prefWidth="640.0" style="-fx-background-color: green;">
+         <children>
+            <Label fx:id="labelFormTitle" layoutX="306.0" layoutY="82.0" text="Label" textFill="#fffefe" AnchorPane.leftAnchor="118.0" AnchorPane.rightAnchor="118.0" AnchorPane.topAnchor="40.0">
+               <font>
+                  <Font size="40.0" />
+               </font>
+            </Label>
+            <VBox layoutX="18.0" layoutY="220.0" maxWidth="600.0" minWidth="600.0" prefHeight="388.0" prefWidth="600.0" AnchorPane.bottomAnchor="90.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="130.0">
+               <children>
+                  <HBox alignment="CENTER_LEFT" maxHeight="70.0" maxWidth="600.0" minHeight="70.0" minWidth="500.0" prefHeight="70.0" prefWidth="200.0" spacing="15.0">
+                     <children>
+                        <Label text="DNI">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                           <padding>
+                              <Insets left="20.0" />
+                           </padding>
+                        </Label>
+                        <TextField promptText="12345678-H">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </TextField>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="10.0" maxHeight="70.0" maxWidth="600.0" minHeight="70.0" minWidth="500.0" prefHeight="70.0" prefWidth="200.0" spacing="15.0">
+                     <children>
+                        <Label maxWidth="100.0" minWidth="100.0" prefWidth="100.0" text="Nombre">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                           <padding>
+                              <Insets left="20.0" />
+                           </padding>
+                        </Label>
+                        <TextField promptText="Cantunflias">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </TextField>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="80.0" maxHeight="70.0" maxWidth="600.0" minHeight="70.0" minWidth="500.0" prefHeight="70.0" prefWidth="200.0" spacing="15.0">
+                     <children>
+                        <Label maxWidth="100.0" minWidth="100.0" prefWidth="100.0" text="Apellidos">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                           <padding>
+                              <Insets left="20.0" />
+                           </padding>
+                        </Label>
+                        <TextField promptText="Girezo">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </TextField>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="150.0" maxHeight="70.0" maxWidth="600.0" minHeight="70.0" minWidth="500.0" prefHeight="70.0" prefWidth="200.0" spacing="15.0">
+                     <children>
+                        <Label maxWidth="100.0" minWidth="100.0" prefWidth="100.0" text="Email">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                           <padding>
+                              <Insets left="20.0" />
+                           </padding>
+                        </Label>
+                        <TextField promptText="a@gmail.com">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </TextField>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="150.0" maxHeight="70.0" maxWidth="600.0" minHeight="70.0" minWidth="500.0" prefHeight="70.0" prefWidth="200.0" spacing="15.0">
+                     <children>
+                        <Label maxWidth="100.0" minWidth="100.0" prefWidth="100.0" text="Edad">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                           <padding>
+                              <Insets left="20.0" />
+                           </padding>
+                        </Label>
+                        <TextField promptText="45">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </TextField>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="290.0" maxHeight="70.0" maxWidth="600.0" minHeight="70.0" minWidth="500.0" prefHeight="70.0" prefWidth="200.0" spacing="15.0">
+                     <children>
+                        <Label maxWidth="100.0" minWidth="100.0" prefWidth="100.0" text="Telefono">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                           <padding>
+                              <Insets left="20.0" />
+                           </padding>
+                        </Label>
+                        <TextField promptText="722464388">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </TextField>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+            <HBox alignment="CENTER_RIGHT" maxHeight="600.0" maxWidth="600.0" minHeight="600.0" minWidth="600.0" prefHeight="600.0" prefWidth="600.0">
+               <children>
+                  <Button mnemonicParsing="false" text="Button" />
+                  <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" text="Button" />
+               </children>
+            </HBox>
+         </children></AnchorPane>
+   </children>
+</AnchorPane>
