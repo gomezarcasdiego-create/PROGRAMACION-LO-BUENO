@@ -1,6 +1,6 @@
 package org.example.apppersonasfx.model;
 
-public class PersonaBuilder {
+public class PersonaBuilder extends Persona {
 
     private String dni;
     private String name;

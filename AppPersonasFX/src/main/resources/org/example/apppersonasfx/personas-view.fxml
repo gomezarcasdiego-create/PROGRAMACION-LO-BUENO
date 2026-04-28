@@ -66,6 +66,9 @@
                            <font>
                               <Font size="16.0" />
                            </font>
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
                         </TextField>
                      </children>
                   </HBox>
@@ -158,8 +161,8 @@
             </VBox>
             <HBox alignment="CENTER_RIGHT" maxHeight="600.0" maxWidth="600.0" minHeight="600.0" minWidth="600.0" prefHeight="600.0" prefWidth="600.0">
                <children>
-                  <Button mnemonicParsing="false" text="Button" />
-                  <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" text="Button" />
+                  <Button mnemonicParsing="false" text="Guardar" />
+                  <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" text="Cancelar" />
                </children>
             </HBox>
          </children></AnchorPane>

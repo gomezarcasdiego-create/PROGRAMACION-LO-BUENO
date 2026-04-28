@@ -115,7 +115,7 @@ public class SQLAccessPersona {
         return p;
     }
 
-    public boolean createPersona(Persona persona){
+    public static boolean createPersona(Persona persona){
         boolean result = false;
         String sqlInsertpersonas = "INSERT INTO person (dni, name, surname, email, age, phone) " +
                 "VALUES (?, ?, ?, ?, ?, ?)";
