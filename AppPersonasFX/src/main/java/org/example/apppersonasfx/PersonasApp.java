@@ -11,9 +11,11 @@ public class PersonasApp extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(PersonasApp.class.getResource("personas-view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 320, 240);
-        stage.setTitle("App administracion personas");
+        Scene scene = new Scene(fxmlLoader.load(), 640, 640);
+        stage.setTitle("App administración Personas");
         stage.setScene(scene);
+        //Configurar para no poder cambiar el tamaño de la ventana
+        stage.setResizable(false);
         stage.show();
     }
 }

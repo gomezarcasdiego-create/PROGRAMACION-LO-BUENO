@@ -24,4 +24,4 @@ VALUES
 ('22334455G', 'Elena', 'Gómez Martín', 'elena.gomez99@email.com', 22, '+34666998877'),
 ('66778899H', 'Alejandro', 'Pérez Castillo', 'aleperez.castillo@email.com', 38, '+34677554433'),
 ('33445566I', 'Carmen', 'Ruiz Navarro', 'carmen.ruizn@email.com', 50, '+34688112233'),
-('77889900J', 'Daniel', 'Martín Romero', 'daniel.martinr@email.com', 29, '+34699667788');
+('77889900J', 'Daniel', 'Martín Ro   mero', 'daniel.martinr@email.com', 29, '+34699667788');
